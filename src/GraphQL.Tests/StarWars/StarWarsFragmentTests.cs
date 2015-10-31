@@ -29,7 +29,7 @@
               }
             }";
 
-            AssertQuerySuccess(query, expected);
+            AssertQuerySuccess(query, expected, root: new StarWarsData());
         }
 
         [Test]
@@ -51,7 +51,7 @@
               },
             }";
 
-            AssertQuerySuccess(query, expected);
+            AssertQuerySuccess(query, expected, root: new StarWarsData() );
         }
     }
 }

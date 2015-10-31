@@ -1,7 +1,36 @@
+using System;
+using System.Data.Entity;
+using System.Threading.Tasks;
+using Should;
+
 namespace GraphQL.Tests
 {
     public class StarWarsBasicQueryTests : QueryTestBase<StarWarsSchema>
     {
+        StarWarsData _data = new StarWarsData();
+
+        public StarWarsBasicQueryTests()
+        {
+        }
+
+        private void InitializeDatabase()
+        {
+            Database.SetInitializer( new DropCreateDatabaseAlways<StarWarsData>() );
+            _data.InitializeData();
+            _data.SaveChanges();
+        }
+
+        [Test]
+        public async Task initialize_database()
+        {
+            //InitializeDatabase();
+
+            int count = await _data.Humans.CountAsync();
+            count.ShouldEqual( 2 );
+            count = await _data.Droids.CountAsync();
+            count.ShouldEqual( 2 );
+        }
+
         [Test]
         public void identifies_r2_as_the_hero()
         {
@@ -18,8 +47,7 @@ namespace GraphQL.Tests
     name: 'R2-D2'
   }
 }";
-
-            AssertQuerySuccess(query, expected);
+            AssertQuerySuccess( query, expected, root: _data );
         }
 
         [Test]
@@ -39,7 +67,7 @@ namespace GraphQL.Tests
   }
 }";
 
-            AssertQuerySuccess(query, expected);
+            AssertQuerySuccess( query, expected, root: _data );
         }
 
         [Test]
@@ -72,7 +100,7 @@ namespace GraphQL.Tests
   }
 }";
 
-            AssertQuerySuccess(query, expected);
+            AssertQuerySuccess( query, expected, root: _data );
         }
 
         [Test]
@@ -94,7 +122,7 @@ namespace GraphQL.Tests
               }
             }";
 
-            AssertQuerySuccess(query, expected);
+            AssertQuerySuccess( query, expected, root: _data );
         }
 
         [Test]
@@ -122,7 +150,7 @@ namespace GraphQL.Tests
               }
             }";
 
-            AssertQuerySuccess(query, expected);
+            AssertQuerySuccess( query, expected, root: _data );
         }
 
         [Test]
@@ -142,7 +170,7 @@ namespace GraphQL.Tests
   }
 }";
 
-            AssertQuerySuccess(query, expected);
+            AssertQuerySuccess( query, expected, root: _data );
         }
 
         [Test]
@@ -165,7 +193,7 @@ namespace GraphQL.Tests
 
             var inputs = new Inputs {{"id", "1"}};
 
-            AssertQuerySuccess(query, expected, inputs);
+            AssertQuerySuccess( query, expected, inputs, root: _data );
         }
 
         [Test]
@@ -192,7 +220,7 @@ namespace GraphQL.Tests
               }
             }";
 
-            AssertQuerySuccess(query, expected);
+            AssertQuerySuccess( query, expected, root: _data );
         }
     }
 }

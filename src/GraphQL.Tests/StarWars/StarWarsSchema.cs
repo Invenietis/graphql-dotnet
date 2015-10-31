@@ -6,7 +6,7 @@ namespace GraphQL.Tests
     {
         public StarWarsSchema()
         {
-            Query = new StarWarsQuery();
+            Query = new  StarWarsQuery();
         }
     }
 }

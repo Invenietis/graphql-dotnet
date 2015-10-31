@@ -6,6 +6,7 @@ namespace GraphQL.Types
 {
     public abstract class GraphType
     {
+
         private readonly List<FieldType> _fields = new List<FieldType>();
 
         public string Name { get; set; }
@@ -18,35 +19,39 @@ namespace GraphQL.Types
             private set
             {
                 _fields.Clear();
-                _fields.AddRange(value);
+                _fields.AddRange( value );
             }
         }
 
         public void Field<TType>(
-            string name, 
-            string description = null, 
+            string name,
+            string description = null,
             QueryArguments arguments = null,
-            Func<ResolveFieldContext, object> resolve = null)
+            Func<ResolveFieldContext, object> resolve = null )
             where TType : GraphType
         {
-            if (_fields.Exists(x => x.Name == name))
+            if( _fields.Exists( x => x.Name == name ) )
             {
-                throw new ArgumentOutOfRangeException("name", "A field with that name is already registered.");
+                throw new ArgumentOutOfRangeException( "name", "A field with that name is already registered." );
             }
 
-            _fields.Add(new FieldType
+            _fields.Add( new FieldType
             {
                 Name = name,
-                Type = typeof(TType),
+                Type = typeof( TType ),
                 Arguments = arguments,
                 Resolve = resolve
-            });
+            } );
         }
 
-        public virtual string CollectTypes(TypeCollectionContext context)
+        public virtual string CollectTypes( TypeCollectionContext context )
         {
             return Name;
         }
+    }
+
+    public abstract class GraphType<T> : GraphType
+    {
     }
 
     /// <summary>

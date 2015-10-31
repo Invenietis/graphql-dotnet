@@ -126,6 +126,8 @@
     <Antlr4 Include="GraphQL.g4">
       <Generator>MSBuild:Compile</Generator>
       <CustomToolNamespace>GraphQL.Parsing</CustomToolNamespace>
+      <Listener>True</Listener>
+      <Visitor>True</Visitor>
     </Antlr4>
     <None Include="packages.config" />
   </ItemGroup>

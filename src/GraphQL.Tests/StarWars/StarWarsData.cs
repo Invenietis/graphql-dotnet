@@ -1,70 +1,141 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace GraphQL.Tests
 {
-    public class StarWarsData
+    public class StarWarsData : DbContext
     {
-        private readonly List<Human> _humans = new List<Human>();
-        private readonly List<Droid> _droids = new List<Droid>();
-
-        public StarWarsData()
+        public StarWarsData() : base( "Server=.;Database=GraphQL;Integrated Security=SSPI;MultipleActiveResultSets=True;" )
         {
-            _humans.Add(new Human
-            {
-                Id = "1", Name = "Luke",
-                Friends = new[] {"3", "4"},
-                AppearsIn = new[] {4, 5, 6},
-                HomePlanet = "Tatooine"
-            });
-            _humans.Add(new Human
-            {
-                Id = "2", Name = "Vader",
-                AppearsIn = new[] {4, 5, 6},
-                HomePlanet = "Tatooine"
-            });
+        }
 
-            _droids.Add(new Droid
+        internal void InitializeData()
+        {
+            Humans.Add( new Human
             {
-                Id = "3", Name = "R2-D2",
-                Friends = new[] {"1", "4"},
-                AppearsIn = new[] {4, 5, 6},
+                Id = "1",
+                Name = "Luke",
+                HomePlanet = "Tatooine"
+            } );
+            Humans.Add( new Human
+            {
+                Id = "2",
+                Name = "Vader",
+                HomePlanet = "Tatooine"
+            } );
+
+            Droids.Add( new Droid
+            {
+                Id = "3",
+                Name = "R2-D2",
                 PrimaryFunction = "Astromech"
-            });
-            _droids.Add(new Droid
+            } );
+            Droids.Add( new Droid
             {
-                Id = "4", Name = "C-3PO",
-                AppearsIn = new[] {4, 5, 6},
+                Id = "4",
+                Name = "C-3PO",
                 PrimaryFunction = "Protocol"
-            });
-        }
+            } );
 
-        public IEnumerable<StarWarsCharacter> GetFriends(StarWarsCharacter character)
-        {
-            if (character == null)
+            var ep4 = new StarWarsEpisod
             {
-                return null;
-            }
-
-            var friends = new List<StarWarsCharacter>();
-            var lookup = character.Friends;
-            if (lookup != null)
+                Id = (int)StarWarsEpisodEnum.NEWHOPE,
+                Name = "NEWHOPE"
+            };
+            var ep5 = new StarWarsEpisod
             {
-                _humans.Where(h => lookup.Contains(h.Id)).Apply(friends.Add);
-                _droids.Where(d => lookup.Contains(d.Id)).Apply(friends.Add);
+                Id = (int)StarWarsEpisodEnum.EMPIRE,
+                Name = "EMPIRE"
+            };
+            var ep6 = new StarWarsEpisod
+            {
+                Id = (int)StarWarsEpisodEnum.JEDI,
+                Name = "JEDI"
+            };
+            Episods.Add( ep4 );
+            Episods.Add( ep5 );
+            Episods.Add( ep6 );
+            SaveChanges();
+
+            Droids.First().Friends.Add( Humans.First() );
+            foreach( var c in Droids )
+            {
+                Humans.First().Friends.Add( c );
+                if( c.Id == "4" ) Droids.First().Friends.Add( c );
+
+                c.Appearances.Add( ep4 );
+                c.Appearances.Add( ep5 );
+                c.Appearances.Add( ep6 );
             }
-            return friends;
+            foreach( var c in Humans )
+            {
+                c.Appearances.Add( ep4 );
+                c.Appearances.Add( ep5 );
+                c.Appearances.Add( ep6 );
+            }
+            SaveChanges();
         }
 
-        public Task<Human> GetHumanByIdAsync(string id)
+        protected override void OnModelCreating( DbModelBuilder modelBuilder )
         {
-            return Task.FromResult(_humans.FirstOrDefault(h => h.Id == id));
+            base.OnModelCreating( modelBuilder );
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            modelBuilder.Entity<StarWarsCharacter>().ToTable( "Character" );
+            modelBuilder.Entity<Human>().ToTable( "Human" );
+            modelBuilder.Entity<Droid>().ToTable( "Droid" );
+            modelBuilder.Entity<StarWarsEpisod>().Property( e => e.Id ).HasDatabaseGeneratedOption( DatabaseGeneratedOption.None );
+            //modelBuilder.Entity<CharactersAppearance>().ToTable( "Appearance" );
+            //modelBuilder.Entity<FriendShip>().HasKey( c => new { c.CharacterId, c.FriendId } );
+            modelBuilder.Entity<StarWarsCharacter>()
+               .HasMany( c => c.Friends )
+                 .WithMany()
+                    .Map( m =>
+                    {
+                        m.MapLeftKey( "CharacterId" );
+                        m.MapRightKey( "FriendId" );
+                        m.ToTable( "Friends" );
+                    } );
+            modelBuilder.Entity<StarWarsCharacter>()
+                .HasMany( c => c.Appearances )
+                 .WithMany()
+                    .Map( m =>
+                    {
+                        m.MapLeftKey( "CharacterId" );
+                        m.MapRightKey( "EpisodId" );
+                        m.ToTable( "CharactersAppearance" );
+                    } );
+
         }
 
-        public Task<Droid> GetDroidByIdAsync(string id)
-        {
-            return Task.FromResult(_droids.FirstOrDefault(h => h.Id == id));
-        }
+        public DbSet<Human> Humans { get; set; }
+        public DbSet<Droid> Droids { get; set; }
+
+        public DbSet<StarWarsEpisod> Episods { get; set; }
+
+    }
+
+    public class CharactersAppearance
+    {
+        public int CharacterId { get; set; }
+
+        public StarWarsEpisod Episod { get; set; }
+    }
+
+    public enum StarWarsEpisodEnum
+    {
+        NEWHOPE = 4,
+        EMPIRE = 5,
+        JEDI = 6
+    }
+
+    public class StarWarsEpisod
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -9,7 +9,7 @@
 
             var expected = "{ hero: { __typename: 'Droid', name: 'R2-D2' } }";
 
-            AssertQuerySuccess(query, expected);
+            AssertQuerySuccess(query, expected, root: new StarWarsData());
         }
 
         [Test]
@@ -31,7 +31,7 @@
               }
             }";
 
-            AssertQuerySuccess(query, expected);
+            AssertQuerySuccess(query, expected, root: new StarWarsData() );
         }
 
         [Test]

@@ -1,6 +1,8 @@
-import React from 'react';
-import GraphiQL from 'graphiql';
-import fetch from 'isomorphic-fetch';
+﻿/// <Reference path="app.js" />
+
+var React = require('react')
+var GraphiQL = require('graphiql')
+var fetch = require('isomorphic-fetch')
 
 function graphQLFetcher(graphQLParams) {
   return fetch(window.location.origin + '/api/graphql', {
@@ -11,11 +13,11 @@ function graphQLFetcher(graphQLParams) {
 }
 
 class App extends React.Component {
-  render() {
-    return (
-      <GraphiQL fetcher={graphQLFetcher}/>
+    render() {
+        return (
+          <GraphiQL fetcher={graphQLFetcher} />
     );
-  }
+    }
 }
 
-React.render(<GraphiQL fetcher={graphQLFetcher}/>, document.body);
+React.render(<GraphiQL fetcher={graphQLFetcher } />, document.body);

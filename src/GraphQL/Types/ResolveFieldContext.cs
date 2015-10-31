@@ -16,8 +16,15 @@ namespace GraphQL.Types
 
         public object Source { get; set; }
 
+        public object Root { get; set; }
+
         public Schema Schema { get; set; }
 
         public CancellationToken CancellationToken { get; set; }
     }
+
+    public class ResolveFieldContext<T> : ResolveFieldContext
+    {
+    }
+
 }
