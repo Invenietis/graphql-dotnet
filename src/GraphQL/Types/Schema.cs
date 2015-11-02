@@ -35,6 +35,8 @@ namespace GraphQL.Types
         {
             get
             {
+                EnsureLookup();
+
                 return _lookup
                     .All()
                     .Where(x => !(x is NonNullGraphType || x is ListGraphType))
@@ -61,6 +63,7 @@ namespace GraphQL.Types
 
         public IEnumerable<GraphType> FindImplemenationsOf(Type type)
         {
+            EnsureLookup();
             return _lookup.FindImplemenationsOf(type);
         }
 

@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace GraphQL.Types
 {
     public abstract class GraphType
     {
-
         private readonly List<FieldType> _fields = new List<FieldType>();
 
         public string Name { get; set; }
@@ -44,14 +43,39 @@ namespace GraphQL.Types
             } );
         }
 
+        public void Mutation<TInput, TPayload>( string name, Func<TInput, ResolveFieldContext, TPayload> resolve )
+            where TInput : GraphType
+            where TPayload : class
+        {
+            var arguments = new QueryArguments(new[]
+            {
+                new QueryArgument<NonNullGraphType<StringGraphType>>
+                {
+                    Name = "input",
+                    Description = "input"
+                }
+            });
+
+            Field<TInput>( name, null, arguments, ctx => resolve( ctx.Arguments.First().Value as TInput, ctx ) );
+        }
+
+        public void Mutation<TInput, TPayload, THandler>( string name ) 
+            where TInput : GraphType
+            where TPayload : class
+            where THandler : Handlers.MutationHandler<TInput, TPayload>
+        {
+            Mutation<TInput, TPayload>( name, ( input, ctx ) =>
+           {
+               THandler handler = Handlers.HandlerBuilder.Current.Factory.CreateHandler<TInput, TPayload, THandler>( ctx );
+               return handler.Handle( input );
+           } );
+        }
+
+
         public virtual string CollectTypes( TypeCollectionContext context )
         {
             return Name;
         }
-    }
-
-    public abstract class GraphType<T> : GraphType
-    {
     }
 
     /// <summary>
@@ -61,7 +85,7 @@ namespace GraphQL.Types
     {
         public TypeCollectionContext(
             Func<Type, GraphType> resolver,
-            Action<string, GraphType> addType)
+            Action<string, GraphType> addType )
         {
             ResolveType = resolver;
             AddType = addType;

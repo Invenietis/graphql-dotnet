@@ -59,6 +59,12 @@ namespace GraphQL.Tests
             Episods.Add( ep4 );
             Episods.Add( ep5 );
             Episods.Add( ep6 );
+
+            Factions.Add( new Faction
+            {
+                FactionId = 1,
+                FactionName = "Alliance to Restore the Republic"
+            } );
             SaveChanges();
 
             Droids.First().Friends.Add( Humans.First() );
@@ -117,6 +123,8 @@ namespace GraphQL.Tests
 
         public DbSet<StarWarsEpisod> Episods { get; set; }
 
+        public DbSet<Faction> Factions { get; set; }
+        public DbSet<Ship> Ships { get; set; }
     }
 
     public class CharactersAppearance

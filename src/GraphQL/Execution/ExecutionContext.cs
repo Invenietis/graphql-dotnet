@@ -23,9 +23,7 @@ namespace GraphQL.Execution
         public ExecutionErrors Errors { get; set; }
 
         public CancellationToken CancellationToken { get; set; }
-    }
-    public class ExecutionContext<T> : ExecutionContext
-    {
-        public T RootObject { get; set; }
+
+        public object RootObject { get; set; }
     }
 }

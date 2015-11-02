@@ -28,13 +28,13 @@ namespace GraphQL.Tests
         public QueryTestBase()
         {
             Schema = new TSchema();
-            Executer = new DocumentExecuter<TData>( new TDocumentBuilder(), new DocumentValidator() );
+            Executer = new DocumentExecuter( new TDocumentBuilder(), new DocumentValidator() );
             Writer = new DocumentWriter( Formatting.Indented );
         }
 
         public TSchema Schema { get; private set; }
 
-        public IDocumentExecuter<TData> Executer { get; private set; }
+        public IDocumentExecuter Executer { get; private set; }
 
         public IDocumentWriter Writer { get; private set; }
 

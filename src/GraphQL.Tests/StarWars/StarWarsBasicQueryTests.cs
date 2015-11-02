@@ -20,10 +20,10 @@ namespace GraphQL.Tests
             _data.SaveChanges();
         }
 
-        [Test]
+        //[Test]
         public async Task initialize_database()
         {
-            //InitializeDatabase();
+            InitializeDatabase();
 
             int count = await _data.Humans.CountAsync();
             count.ShouldEqual( 2 );

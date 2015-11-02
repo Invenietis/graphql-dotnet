@@ -23,9 +23,10 @@ namespace GraphQL.GraphiQL.Controllers
 
         public async Task<ExecutionResult> Execute<T>( Schema schema, T rootObject, string query, string operationName = null, Inputs inputs = null)
         {
-            var executer = new DocumentExecuter<T>();
+            var executer = new DocumentExecuter();
             return await executer.ExecuteAsync(schema, rootObject, query, operationName);
         }
+
         protected override void Dispose( bool disposing )
         {
             _data.Dispose();

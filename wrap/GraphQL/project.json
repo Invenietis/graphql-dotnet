@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45": {
+      "wrappedProject": "../../src/GraphQL/GraphQL.csproj",
+      "bin": {
+        "assembly": "../../src/GraphQL/obj/{configuration}/GraphQL.dll",
+        "pdb": "../../src/GraphQL/obj/{configuration}/GraphQL.pdb"
+      },
+      "dependencies": {
+        "Antlr4": "4.5-alpha002",
+        "Antlr4.Runtime": "4.5-alpha002",
+        "ILRepack": "2.0.2",
+        "Newtonsoft.Json": "7.0.1"
+      }
+    }
+  }
+}
