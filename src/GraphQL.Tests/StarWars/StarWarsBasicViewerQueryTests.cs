@@ -2,10 +2,11 @@ using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using Should;
+using GraphQL.Types;
 
 namespace GraphQL.Tests
 {
-    public class StarWarsBasicViewerQueryTests : QueryTestBase<StarWarsSchema<ActorType<StarWarsQuery>>>
+    public class StarWarsBasicViewerQueryTests : QueryTestBase<StarWarsSchema<ViewerType<StarWarsQuery>>>
     {
         StarWarsData _data = new StarWarsData();
 

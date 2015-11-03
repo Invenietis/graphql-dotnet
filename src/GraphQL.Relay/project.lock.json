@@ -59,6 +59,18 @@
           "Newtonsoft.Json": "7.0.1"
         }
       },
+      "GraphQL.SchemaBuilder/1.0.0": {
+        "type": "project",
+        "framework": "DNX,Version=v4.5.1",
+        "dependencies": {
+          "GraphQL": "1.0.0",
+          "Microsoft.Dnx.Runtime.Abstractions": "1.0.0-rc1-15838",
+          "Microsoft.Extensions.Configuration": "1.0.0-rc1-15773",
+          "Microsoft.Extensions.Configuration.CommandLine": "1.0.0-rc1-15696",
+          "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-15696",
+          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-16048"
+        }
+      },
       "GraphQL.Tests/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
@@ -333,6 +345,21 @@
         },
         "runtime": {
           "lib/net451/Microsoft.Dnx.Compilation.Abstractions.dll": {}
+        }
+      },
+      "Microsoft.Dnx.Runtime.Abstractions/1.0.0-rc1-15838": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/dnx451/Microsoft.Dnx.Runtime.Abstractions.dll": {}
+        },
+        "runtime": {
+          "lib/dnx451/Microsoft.Dnx.Runtime.Abstractions.dll": {}
         }
       },
       "Microsoft.Extensions.Configuration/1.0.0-rc1-15773": {
@@ -783,6 +810,18 @@
           "Newtonsoft.Json": "7.0.1"
         }
       },
+      "GraphQL.SchemaBuilder/1.0.0": {
+        "type": "project",
+        "framework": "DNX,Version=v4.5.1",
+        "dependencies": {
+          "GraphQL": "1.0.0",
+          "Microsoft.Dnx.Runtime.Abstractions": "1.0.0-rc1-15838",
+          "Microsoft.Extensions.Configuration": "1.0.0-rc1-15773",
+          "Microsoft.Extensions.Configuration.CommandLine": "1.0.0-rc1-15696",
+          "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-15696",
+          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-16048"
+        }
+      },
       "GraphQL.Tests/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
@@ -1057,6 +1096,21 @@
         },
         "runtime": {
           "lib/net451/Microsoft.Dnx.Compilation.Abstractions.dll": {}
+        }
+      },
+      "Microsoft.Dnx.Runtime.Abstractions/1.0.0-rc1-15838": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/dnx451/Microsoft.Dnx.Runtime.Abstractions.dll": {}
+        },
+        "runtime": {
+          "lib/dnx451/Microsoft.Dnx.Runtime.Abstractions.dll": {}
         }
       },
       "Microsoft.Extensions.Configuration/1.0.0-rc1-15773": {
@@ -1507,6 +1561,18 @@
           "Newtonsoft.Json": "7.0.1"
         }
       },
+      "GraphQL.SchemaBuilder/1.0.0": {
+        "type": "project",
+        "framework": "DNX,Version=v4.5.1",
+        "dependencies": {
+          "GraphQL": "1.0.0",
+          "Microsoft.Dnx.Runtime.Abstractions": "1.0.0-rc1-15838",
+          "Microsoft.Extensions.Configuration": "1.0.0-rc1-15773",
+          "Microsoft.Extensions.Configuration.CommandLine": "1.0.0-rc1-15696",
+          "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-15696",
+          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-16048"
+        }
+      },
       "GraphQL.Tests/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
@@ -1781,6 +1847,21 @@
         },
         "runtime": {
           "lib/net451/Microsoft.Dnx.Compilation.Abstractions.dll": {}
+        }
+      },
+      "Microsoft.Dnx.Runtime.Abstractions/1.0.0-rc1-15838": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/dnx451/Microsoft.Dnx.Runtime.Abstractions.dll": {}
+        },
+        "runtime": {
+          "lib/dnx451/Microsoft.Dnx.Runtime.Abstractions.dll": {}
         }
       },
       "Microsoft.Extensions.Configuration/1.0.0-rc1-15773": {
@@ -2180,6 +2261,10 @@
       "type": "project",
       "path": "../../wrap/GraphQL/project.json"
     },
+    "GraphQL.SchemaBuilder/1.0.0": {
+      "type": "project",
+      "path": "../../GraphQL.SchemaBuilder/project.json"
+    },
     "GraphQL.Tests/1.0.0": {
       "type": "project",
       "path": "../../wrap/GraphQL.Tests/project.json"
@@ -2471,6 +2556,20 @@
         "Microsoft.Dnx.Compilation.Abstractions.1.0.0-rc1-16048.nupkg",
         "Microsoft.Dnx.Compilation.Abstractions.1.0.0-rc1-16048.nupkg.sha512",
         "Microsoft.Dnx.Compilation.Abstractions.nuspec"
+      ]
+    },
+    "Microsoft.Dnx.Runtime.Abstractions/1.0.0-rc1-15838": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "ttAofn7DI73KBu50QqPbB3hN/E1bZO+NNNZnpHkEmLP2dh5Lqm2isho3vdrm25Bv2S7RETrIPXcERMOfGCcaow==",
+      "files": [
+        "lib/dnx451/Microsoft.Dnx.Runtime.Abstractions.dll",
+        "lib/dnx451/Microsoft.Dnx.Runtime.Abstractions.xml",
+        "lib/dnxcore50/Microsoft.Dnx.Runtime.Abstractions.dll",
+        "lib/dnxcore50/Microsoft.Dnx.Runtime.Abstractions.xml",
+        "Microsoft.Dnx.Runtime.Abstractions.1.0.0-rc1-15838.nupkg",
+        "Microsoft.Dnx.Runtime.Abstractions.1.0.0-rc1-15838.nupkg.sha512",
+        "Microsoft.Dnx.Runtime.Abstractions.nuspec"
       ]
     },
     "Microsoft.Extensions.Configuration/1.0.0-rc1-15773": {
@@ -2958,7 +3057,8 @@
     "": [
       "Microsoft.AspNet.Hosting >= 1.0.0-*",
       "Microsoft.AspNet.StaticFiles >= 1.0.0-*",
-      "Microsoft.AspNet.Server.WebListener >= 1.0.0-*"
+      "Microsoft.AspNet.Server.WebListener >= 1.0.0-*",
+      "GraphQL.SchemaBuilder >= 1.0.0-*"
     ],
     "DNX,Version=v4.5.1": [
       "GraphQL >= 1.0.0-*",

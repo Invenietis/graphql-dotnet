@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Execution\AntlrDocumentBuilder.cs" />
+    <Compile Include="Extensions\ViewerType.cs" />
     <Compile Include="Handlers\HandlerBuilder.cs" />
     <Compile Include="Handlers\MutationHandler.cs" />
     <Compile Include="Handlers\IMutationHandlerFactory.cs" />

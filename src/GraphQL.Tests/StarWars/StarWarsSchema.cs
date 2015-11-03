@@ -3,12 +3,12 @@ using GraphQL.Types;
 
 namespace GraphQL.Tests
 {
-    public class StarWarsSchema<QRoot> : Schema where QRoot : ObjectGraphType
+    public class StarWarsSchema<QRoot> : Schema where QRoot : ObjectGraphType 
     {
         public StarWarsSchema()
         {
-            Query = Activator.CreateInstance<QRoot>();
-            //Mutation = new StarWarsMutations();
+            Query = (QRoot)ResolveType( typeof( QRoot ) );
+            Mutation = new StarWarsMutations();
         }
     }
 

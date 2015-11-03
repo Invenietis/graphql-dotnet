@@ -7,10 +7,12 @@ using GraphQL.Http;
 using GraphQL.Tests;
 using GraphQL.Types;
 using Microsoft.AspNet.Builder;
+using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
 using Newtonsoft.Json;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace GraphQL
+namespace GraphQL.Relay
 {
     public class GraphQLMiddleware
     {
@@ -21,7 +23,7 @@ namespace GraphQL
         public GraphQLMiddleware( RequestDelegate next )
         {
             _next = next;
-            _schema = new StarWarsSchema<ActorType<StarWarsQuery>>();
+            _schema = new StarWarsRelaySchema();
             _executer = new DocumentExecuter();
             _writer = new DocumentWriter( Formatting.Indented );
         }

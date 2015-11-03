@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQL.GraphiQL", "src\Gra
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "GraphQL.Relay", "src\GraphQL.Relay\GraphQL.Relay.xproj", "{E9463809-5F1D-4F0C-8817-A4864A2E7726}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "GraphQL.SchemaBuilder", "GraphQL.SchemaBuilder\GraphQL.SchemaBuilder.xproj", "{9FA24544-FA5B-4959-9964-58D538DB62EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{E9463809-5F1D-4F0C-8817-A4864A2E7726}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9463809-5F1D-4F0C-8817-A4864A2E7726}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9463809-5F1D-4F0C-8817-A4864A2E7726}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FA24544-FA5B-4959-9964-58D538DB62EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FA24544-FA5B-4959-9964-58D538DB62EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FA24544-FA5B-4959-9964-58D538DB62EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FA24544-FA5B-4959-9964-58D538DB62EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

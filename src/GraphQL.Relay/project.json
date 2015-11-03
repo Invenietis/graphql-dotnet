@@ -5,12 +5,14 @@
     "dependencies": {
         "Microsoft.AspNet.Hosting": "1.0.0-*",
         "Microsoft.AspNet.StaticFiles": "1.0.0-*",
-        "Microsoft.AspNet.Server.WebListener": "1.0.0-*"
+        "Microsoft.AspNet.Server.WebListener": "1.0.0-*",
+        "GraphQL.SchemaBuilder": "1.0.0-*"
     },
 
 
     "commands": {
-        "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000"
+        "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000",
+        "buildschema": "GraphQL.SchemaBuilder --schemaTypeName GraphQL.Relay.StarWarsRelaySchema --schemaAssemblyName GraphQL.Relay"
     },
 
     "frameworks": {

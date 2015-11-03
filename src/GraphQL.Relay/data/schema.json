@@ -2,9 +2,11 @@
   "data": {
     "__schema": {
       "queryType": {
-        "name": "Actor"
+        "name": "Viewer"
       },
-      "mutationType": null,
+      "mutationType": {
+        "name": "Mutations"
+      },
       "types": [
         {
           "kind": "SCALAR",
@@ -539,7 +541,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "Actor",
+          "name": "Viewer",
           "description": null,
           "fields": [
             {
@@ -955,6 +957,85 @@
               "ofType": null
             }
           ],
+          "enumValues": [],
+          "possibleTypes": []
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Mutations",
+          "description": null,
+          "fields": [
+            {
+              "name": "introduceShip",
+              "description": null,
+              "args": [
+                {
+                  "name": "input",
+                  "description": "input",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "IntroduceShipInput",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": [],
+          "interfaces": [],
+          "enumValues": [],
+          "possibleTypes": []
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "IntroduceShipInput",
+          "description": null,
+          "fields": [],
+          "inputFields": [
+            {
+              "name": "FactionId",
+              "description": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "ShipName",
+              "description": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "ClientMutationId",
+              "description": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": [],
           "enumValues": [],
           "possibleTypes": []
         },

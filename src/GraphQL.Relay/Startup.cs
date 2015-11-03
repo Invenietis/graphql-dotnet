@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GraphQL.Http;
 using GraphQL.Tests;
+using GraphQL.Types;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
@@ -24,20 +25,6 @@ namespace GraphQL.Relay
         {
             // Add the platform handler to the request pipeline.
             app.UseStaticFiles();
-
-            IHostingEnvironment host = app.ApplicationServices.GetRequiredService<IHostingEnvironment>();
-
-            var schema = new StarWarsSchema<ActorType<StarWarsQuery>>();
-
-            var executer = new DocumentExecuter();
-
-            executer.ExecuteAsync( schema, Introspection.SchemaIntrospection.SchemaMeta, Introspection.SchemaIntrospection.IntrospectionQuery, null  )
-               .ContinueWith( x =>
-               {
-                   var writer = new DocumentWriter( Formatting.Indented );
-                   File.WriteAllText( Path.Combine( host.WebRootPath, "data", "schema.json" ), writer.Write( x.Result ) );
-               } );
-
             app.UseGraphQL( "/graphql" );
         }
     }

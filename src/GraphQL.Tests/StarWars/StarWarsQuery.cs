@@ -4,22 +4,6 @@ using System.Data.Entity;
 
 namespace GraphQL.Tests
 {
-    public class ActorType<Q> : ObjectGraphType where Q : ObjectGraphType
-    {
-        public ActorType()
-        {
-            Name = "Actor";
-            Field<Q>( 
-                "viewer", 
-                "Query root to workaround Relay issue described here: https://github.com/facebook/relay/issues/112",
-                resolve: context =>
-                {
-                    return context.Source;
-                    //return null;
-                } );
-        }
-    }
-
     public class StarWarsQuery : ObjectGraphType
     {
         public StarWarsQuery()
