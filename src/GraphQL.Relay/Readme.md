@@ -18,13 +18,15 @@ By default, it creates the schema.json under the *data* folder.
 dnx buildschema
 ```
 
+Webpack the js and jsx into a bundle file.  Webpack will use the *babelRelayPlugin* and reads the schema.json previously generated.
+You can also uses webpack dev server.
+```
+webpack --progress
+```
+
 Runs the website. 
 ```
 dnx web
-```
-
-```
-webpack --progress
 ```
 
 This will launch the server at localhost:5000.
