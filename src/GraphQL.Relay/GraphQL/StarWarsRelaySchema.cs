@@ -9,5 +9,9 @@ namespace GraphQL.Relay
 {
     public class StarWarsRelaySchema : StarWarsSchema<ViewerType<StarWarsQuery>>
     {
+        public StarWarsRelaySchema() : base()
+        {
+            Mutation = null;
+        }
     }
 }

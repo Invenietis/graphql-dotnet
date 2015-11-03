@@ -11,7 +11,6 @@
  */
 import React from 'react';
 import Relay from 'react-relay';
-import RaisedButton from 'material-ui/lib/raised-button';
 
 export default class StarWarsCharacter extends React.Component {
     render() {

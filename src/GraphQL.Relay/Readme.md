@@ -53,7 +53,8 @@ This Relay sample uses EntityFramework over SqlServer.
 Mutations
 ==
 Works from SaltyDH on Mutations is integrated in this sample. (https://github.com/SaltyDH/graphql-dotnet).
-Mutations has then been disabled, since it seems to miss something for Relay.
+But Mutations has then been disabled, since it seems to miss something for Relay: webpack produces the folowing error message: 
+> *Module build failed: Error: Introspection must provide output type for fields.*
 
 GraphQL.SchemaBuilder
 ==
