@@ -13,6 +13,7 @@
 import React from 'react';
 import Relay from 'react-relay';
 import StarWarsCharacter from './StarWarsCharacter';
+import RaisedButton from 'material-ui/lib/raised-button';
 
 export default class Application extends React.Component {
     addFriend (c) {
@@ -45,7 +46,7 @@ export default class Application extends React.Component {
                         <li key={c.id}><StarWarsCharacter character={c} /></li>
                     ))}
                     </ol>
-                    <button onClick={() => this.addFriend(human)} >+</button>
+                    <RaisedButton onClick={() => this.addFriend(human)} > Add friend </RaisedButton>
                 </li>
                 ))}
             </ol>
