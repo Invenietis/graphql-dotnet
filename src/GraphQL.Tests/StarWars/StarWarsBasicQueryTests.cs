@@ -13,24 +13,6 @@ namespace GraphQL.Tests
         {
         }
 
-        private void InitializeDatabase()
-        {
-            Database.SetInitializer( new DropCreateDatabaseAlways<StarWarsData>() );
-            _data.InitializeData();
-            _data.SaveChanges();
-        }
-
-        //[Test]
-        public async Task initialize_database()
-        {
-            InitializeDatabase();
-
-            int count = await _data.Humans.CountAsync();
-            count.ShouldEqual( 2 );
-            count = await _data.Droids.CountAsync();
-            count.ShouldEqual( 2 );
-        }
-
         [Test]
         public void identifies_r2_as_the_hero()
         {

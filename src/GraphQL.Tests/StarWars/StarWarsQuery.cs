@@ -14,7 +14,7 @@ namespace GraphQL.Tests
                 context.Cast<StarWarsData>().Source.Droids.FirstOrDefault( x => x.Id == "3" )
             );
             Field<ListGraphType<HumanType>>( "humans", resolve: context => context.Cast<StarWarsData>().Source.Humans );
-            Field<ListGraphType<HumanType>>( "droids", resolve: context => context.Cast<StarWarsData>().Source.Droids );
+            Field<ListGraphType<DroidType>>( "droids", resolve: context => context.Cast<StarWarsData>().Source.Droids );
             Field<HumanType>(
                 "human",
                 arguments: new QueryArguments(
@@ -41,6 +41,9 @@ namespace GraphQL.Tests
                     return context.Cast<StarWarsData>().Source.Droids.FirstOrDefault( x => x.Id == a );
                 }
             );
+
+            Field<ListGraphType<Faction>>( "factions", resolve: context => context.Cast<StarWarsData>().Source.Factions );
+            Field<ListGraphType<Ship>>( "ships", resolve: context => context.Cast<StarWarsData>().Source.Ships );
         }
     }
 }

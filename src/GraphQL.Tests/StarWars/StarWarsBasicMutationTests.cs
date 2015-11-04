@@ -30,7 +30,7 @@
                         {
                             shipName = "B-Wing",
                             factionId = 1,
-                            clientMutationId = "abcde"
+                            clientMutationId = "U2hpcDo5"
                         }
                     }
                 };

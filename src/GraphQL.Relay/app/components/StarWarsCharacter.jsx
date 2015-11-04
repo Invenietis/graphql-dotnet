@@ -10,7 +10,6 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 import React from 'react';
-import Relay from 'react-relay';
 
 export default class StarWarsCharacter extends React.Component {
     render() {

@@ -83,6 +83,7 @@
     <Compile Include="Types\IHaveDefaultValue.cs" />
     <Compile Include="Types\IImplementInterfaces.cs" />
     <Compile Include="Execution\Inputs.cs" />
+    <Compile Include="Types\OutputGraphType.cs" />
     <Compile Include="Types\InputObjectGraphType.cs" />
     <Compile Include="Types\InterfaceGraphType.cs" />
     <Compile Include="Types\IntGraphType.cs" />

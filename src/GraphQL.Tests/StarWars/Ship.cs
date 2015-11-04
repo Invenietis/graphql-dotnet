@@ -6,12 +6,16 @@ namespace GraphQL.Tests
     {
         public Ship()
         {
-            Name = "ship";
+            Name = "Ship";
             Field<StringGraphType>("id");
             Field<StringGraphType>("shipName");
         }
 
         public string Id { get; set; }
         public string ShipName { get; set; }
+
+        public int FactionId { get; set; }
+
+        public Faction Faction { get; set; }
     }
 }

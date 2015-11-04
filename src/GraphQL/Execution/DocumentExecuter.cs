@@ -170,8 +170,11 @@ namespace GraphQL
                     result = context.Schema.FindType(result as Type);
                 }
 
-                if (result is GraphType && context.Operation.OperationType == OperationType.Mutation)
-                    return await CompleteValue(context, context.Schema.FindType(result.GetType()), fields, result);
+                if( result is GraphType && context.Operation.OperationType == OperationType.Mutation )
+                {
+                    var payloadType = context.Schema.FindType( result.GetType() );
+                    return await CompleteValue( context, payloadType, fields, result );
+                }
 
                 return await CompleteValue(context, context.Schema.FindType(fieldDefinition.Type), fields, result);
             }
@@ -243,12 +246,6 @@ namespace GraphQL
             {
                 var interfaceType = fieldType as InterfaceGraphType;
                 objectType = interfaceType.ResolveType(result);
-            }
-
-            if( fieldType is InputObjectGraphType )
-            {
-                var inputObjectType = fieldType as InputObjectGraphType;
-                return inputObjectType.Coerce( result );
             }
 
             if (objectType == null)

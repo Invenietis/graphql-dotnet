@@ -11,7 +11,7 @@ namespace GraphQL.Relay
     {
         public StarWarsRelaySchema() : base()
         {
-            Mutation = null;
+            //Mutation = null;
         }
     }
 }

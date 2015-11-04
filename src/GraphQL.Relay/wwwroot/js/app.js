@@ -78,11 +78,11 @@
 
 	var _containersApplication2 = _interopRequireDefault(_containersApplication);
 
-	var _routesApplicationQueries = __webpack_require__(652);
+	var _routesApplicationQueries = __webpack_require__(656);
 
 	var _routesApplicationQueries2 = _interopRequireDefault(_routesApplicationQueries);
 
-	var injectTapEventPlugin = __webpack_require__(653);
+	var injectTapEventPlugin = __webpack_require__(657);
 
 	//Needed for onTouchTap
 	//Can go away when react 1.0 release
@@ -47212,18 +47212,22 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _componentsApplication = __webpack_require__(613);
-
-	var _componentsApplication2 = _interopRequireDefault(_componentsApplication);
-
 	var _reactRelay = __webpack_require__(350);
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
+	var _componentsApplication = __webpack_require__(613);
+
+	var _componentsApplication2 = _interopRequireDefault(_componentsApplication);
+
+	var _mutationsIntroduceShipMutation = __webpack_require__(655);
+
+	var _mutationsIntroduceShipMutation2 = _interopRequireDefault(_mutationsIntroduceShipMutation);
+
 	exports['default'] = _reactRelay2['default'].createContainer(_componentsApplication2['default'], {
 	    fragments: {
 	        viewer: function viewer() {
-	            return (function () {
+	            return (function (sub_0) {
 	                var GraphQL = _reactRelay2['default'].QL.__GraphQL;
 	                return new GraphQL.QueryFragment('Application', 'Query', [new GraphQL.Field('humans', [new GraphQL.Field('id', null, null, null, null, null, {
 	                    parentType: 'Human',
@@ -47246,28 +47250,32 @@
 	                })], null, null, null, null, {
 	                    parentType: 'Query',
 	                    plural: true
+	                }), new GraphQL.Field('factions', [new GraphQL.Field('factionId', null, null, null, null, null, {
+	                    parentType: 'Faction'
+	                }), new GraphQL.Field('factionName', null, null, null, null, null, {
+	                    parentType: 'Faction'
+	                }), new GraphQL.Field('ships', [new GraphQL.Field('id', null, null, null, null, null, {
+	                    parentType: 'Ship',
+	                    requisite: true
+	                }), new GraphQL.Field('shipName', null, null, null, null, null, {
+	                    parentType: 'Ship'
+	                })], null, null, null, null, {
+	                    parentType: 'Faction',
+	                    plural: true
+	                })], [_reactRelay2['default'].QL.__frag(sub_0)], null, null, null, {
+	                    parentType: 'Query',
+	                    plural: true
 	                })]);
-	            })();
+	            })(_mutationsIntroduceShipMutation2['default'].getFragment('faction'));
 	        }
 	    }
+
 	});
 	module.exports = exports['default'];
 
 /***/ },
 /* 613 */
 /***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * This file provided by Facebook is for non-commercial testing and evaluation
-	 * purposes only.  Facebook reserves all rights not expressly granted.
-	 *
-	 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-	 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-	 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-	 * FACEBOOK BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
-	 * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-	 * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-	 */
 
 	'use strict';
 
@@ -47297,7 +47305,15 @@
 
 	var _StarWarsCharacter2 = _interopRequireDefault(_StarWarsCharacter);
 
-	var _materialUiLibRaisedButton = __webpack_require__(615);
+	var _StarWarsShip = __webpack_require__(615);
+
+	var _StarWarsShip2 = _interopRequireDefault(_StarWarsShip);
+
+	var _containersStarWarsShipForm = __webpack_require__(616);
+
+	var _containersStarWarsShipForm2 = _interopRequireDefault(_containersStarWarsShipForm);
+
+	var _materialUiLibRaisedButton = __webpack_require__(618);
 
 	var _materialUiLibRaisedButton2 = _interopRequireDefault(_materialUiLibRaisedButton);
 
@@ -47311,21 +47327,11 @@
 	    }
 
 	    _createClass(Application, [{
-	        key: 'addFriend',
-	        value: function addFriend(c) {
-	            c.friends.push({
-	                name: 'lol',
-	                id: new Date().getTime()
-	            });
-
-	            this.setState({});
-	        }
-	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this = this;
-
-	            var humans = this.props.viewer.humans;
+	            var _props$viewer = this.props.viewer;
+	            var humans = _props$viewer.humans;
+	            var factions = _props$viewer.factions;
 
 	            return _react2['default'].createElement(
 	                'div',
@@ -47343,7 +47349,7 @@
 	                            'li',
 	                            { key: human.id },
 	                            _react2['default'].createElement(
-	                                'h1',
+	                                'h2',
 	                                null,
 	                                human.name
 	                            ),
@@ -47353,7 +47359,7 @@
 	                                'His friends'
 	                            ) : '',
 	                            _react2['default'].createElement(
-	                                'ol',
+	                                'ul',
 	                                null,
 	                                human.friends.map(function (c) {
 	                                    return _react2['default'].createElement(
@@ -47362,25 +47368,52 @@
 	                                        _react2['default'].createElement(_StarWarsCharacter2['default'], { character: c })
 	                                    );
 	                                })
-	                            ),
+	                            )
+	                        );
+	                    })
+	                ),
+	                _react2['default'].createElement(
+	                    'h1',
+	                    null,
+	                    'Factions'
+	                ),
+	                _react2['default'].createElement(
+	                    'ol',
+	                    null,
+	                    factions.map(function (faction) {
+	                        return _react2['default'].createElement(
+	                            'li',
+	                            { key: faction.factionId },
 	                            _react2['default'].createElement(
-	                                _materialUiLibRaisedButton2['default'],
-	                                { onClick: function () {
-	                                        return _this.addFriend(human);
-	                                    } },
-	                                ' Add friend '
+	                                'h2',
+	                                null,
+	                                faction.factionName
+	                            ),
+	                            faction.ships.length > 0 ? _react2['default'].createElement(
+	                                'p',
+	                                null,
+	                                ' Ships '
+	                            ) : '',
+	                            _react2['default'].createElement(
+	                                'ul',
+	                                null,
+	                                faction.ships.map(function (ship) {
+	                                    return _react2['default'].createElement(
+	                                        'li',
+	                                        { key: ship.id },
+	                                        _react2['default'].createElement(_StarWarsShip2['default'], { ship: ship })
+	                                    );
+	                                }),
+	                                _react2['default'].createElement(
+	                                    'li',
+	                                    null,
+	                                    _react2['default'].createElement(_containersStarWarsShipForm2['default'], { faction: faction })
+	                                )
 	                            )
 	                        );
 	                    })
 	                )
 	            );
-	        }
-	    }, {
-	        key: 'initialState',
-	        get: function get() {
-	            return {
-	                humans: []
-	            };
 	        }
 	    }]);
 
@@ -47425,14 +47458,6 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRelay = __webpack_require__(350);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	var _materialUiLibRaisedButton = __webpack_require__(615);
-
-	var _materialUiLibRaisedButton2 = _interopRequireDefault(_materialUiLibRaisedButton);
-
 	var StarWarsCharacter = (function (_React$Component) {
 	    _inherits(StarWarsCharacter, _React$Component);
 
@@ -47465,6 +47490,217 @@
 /* 615 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/**
+	 * This file provided by Facebook is for non-commercial testing and evaluation
+	 * purposes only.  Facebook reserves all rights not expressly granted.
+	 *
+	 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+	 * FACEBOOK BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+	 * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+	 * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+	 */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(193);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var StarWarsShip = (function (_React$Component) {
+	    _inherits(StarWarsShip, _React$Component);
+
+	    function StarWarsShip() {
+	        _classCallCheck(this, StarWarsShip);
+
+	        _get(Object.getPrototypeOf(StarWarsShip.prototype), 'constructor', this).apply(this, arguments);
+	    }
+
+	    _createClass(StarWarsShip, [{
+	        key: 'render',
+	        value: function render() {
+	            var ship = this.props.ship;
+
+	            return _react2['default'].createElement(
+	                'h3',
+	                null,
+	                'Ship: ',
+	                ship.shipName
+	            );
+	        }
+	    }]);
+
+	    return StarWarsShip;
+	})(_react2['default'].Component);
+
+	exports['default'] = StarWarsShip;
+	module.exports = exports['default'];
+
+/***/ },
+/* 616 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _reactRelay = __webpack_require__(350);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _componentsStarWarsShipForm = __webpack_require__(617);
+
+	var _componentsStarWarsShipForm2 = _interopRequireDefault(_componentsStarWarsShipForm);
+
+	var _mutationsIntroduceShipMutation = __webpack_require__(655);
+
+	var _mutationsIntroduceShipMutation2 = _interopRequireDefault(_mutationsIntroduceShipMutation);
+
+	exports['default'] = _reactRelay2['default'].createContainer(_componentsStarWarsShipForm2['default'], {
+	  fragments: {
+	    // You can compose a mutation's query fragments like you would those
+	    // of any other RelayContainer. This ensures that the data depended
+	    // upon by the mutation will be fetched and ready for use.
+	    faction: function faction() {
+	      return (function (sub_0) {
+	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	        return new GraphQL.QueryFragment('StarWarsShipForm', 'Faction', [new GraphQL.Field('ships', [new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'Ship',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'Faction',
+	          plural: true
+	        })], [_reactRelay2['default'].QL.__frag(sub_0)]);
+	      })(_mutationsIntroduceShipMutation2['default'].getFragment('faction'));
+	    }
+	  }
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 617 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(193);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRelay = __webpack_require__(350);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _materialUiLibRaisedButton = __webpack_require__(618);
+
+	var _materialUiLibRaisedButton2 = _interopRequireDefault(_materialUiLibRaisedButton);
+
+	var _mutationsIntroduceShipMutation = __webpack_require__(655);
+
+	var _mutationsIntroduceShipMutation2 = _interopRequireDefault(_mutationsIntroduceShipMutation);
+
+	var StarWarsShipForm = (function (_React$Component) {
+	    _inherits(StarWarsShipForm, _React$Component);
+
+	    function StarWarsShipForm() {
+	        var _this = this;
+
+	        _classCallCheck(this, StarWarsShipForm);
+
+	        _get(Object.getPrototypeOf(StarWarsShipForm.prototype), 'constructor', this).apply(this, arguments);
+
+	        this.handleClick = function () {
+	            // To perform a mutation, pass an instance of one to `Relay.Store.update`
+	            var mutation = new _mutationsIntroduceShipMutation2['default']({
+	                faction: _this.props.faction,
+	                ship: { shipName: _this.state.shipName }
+	            });
+	            _reactRelay2['default'].Store.update(mutation);
+	        };
+
+	        this.state = { shipName: 'Enter ship name' };
+
+	        this.handleChange = function (event) {
+	            _this.setState({ shipName: event.target.value });
+	        };
+	    }
+
+	    _createClass(StarWarsShipForm, [{
+	        key: 'render',
+	        value: function render() {
+	            var faction = this.props.faction;
+
+	            return _react2['default'].createElement(
+	                'form',
+	                null,
+	                _react2['default'].createElement(
+	                    'h2',
+	                    null,
+	                    'Introduce a ship for ',
+	                    faction.factionName
+	                ),
+	                _react2['default'].createElement(
+	                    'p',
+	                    null,
+	                    _react2['default'].createElement(
+	                        'label',
+	                        { htmlFor: 'tbShipName' },
+	                        'Enter ship name '
+	                    ),
+	                    _react2['default'].createElement('input', { name: 'tbShipName', type: 'text', value: this.state.shipName, onChange: this.handleChange })
+	                ),
+	                _react2['default'].createElement(
+	                    _materialUiLibRaisedButton2['default'],
+	                    { onClick: this.handleClick },
+	                    ' Introduce Ship '
+	                )
+	            );
+	        }
+	    }]);
+
+	    return StarWarsShipForm;
+	})(_react2['default'].Component);
+
+	exports['default'] = StarWarsShipForm;
+	module.exports = exports['default'];
+
+/***/ },
+/* 618 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -47473,14 +47709,14 @@
 
 	var React = __webpack_require__(193);
 	var ReactDOM = __webpack_require__(349);
-	var StylePropable = __webpack_require__(616);
-	var Transitions = __webpack_require__(624);
-	var ColorManipulator = __webpack_require__(625);
-	var Typography = __webpack_require__(626);
-	var EnhancedButton = __webpack_require__(628);
-	var Paper = __webpack_require__(650);
-	var DefaultRawTheme = __webpack_require__(643);
-	var ThemeManager = __webpack_require__(645);
+	var StylePropable = __webpack_require__(619);
+	var Transitions = __webpack_require__(627);
+	var ColorManipulator = __webpack_require__(628);
+	var Typography = __webpack_require__(629);
+	var EnhancedButton = __webpack_require__(631);
+	var Paper = __webpack_require__(653);
+	var DefaultRawTheme = __webpack_require__(646);
+	var ThemeManager = __webpack_require__(648);
 
 	function validateLabel(props, propName, componentName) {
 	  if (!props.children && !props.label) {
@@ -47729,14 +47965,14 @@
 	module.exports = RaisedButton;
 
 /***/ },
-/* 616 */
+/* 619 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(193);
-	var ImmutabilityHelper = __webpack_require__(617);
-	var Styles = __webpack_require__(620);
+	var ImmutabilityHelper = __webpack_require__(620);
+	var Styles = __webpack_require__(623);
 
 	// This mixin isn't necessary and will be removed in v0.11
 
@@ -47774,13 +48010,13 @@
 	};
 
 /***/ },
-/* 617 */
+/* 620 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(193);
-	var update = __webpack_require__(618);
+	var update = __webpack_require__(621);
 
 	function mergeSingle(objA, objB) {
 	  if (!objA) return objB;
@@ -47820,13 +48056,13 @@
 	};
 
 /***/ },
-/* 618 */
+/* 621 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(619);
+	module.exports = __webpack_require__(622);
 
 /***/ },
-/* 619 */
+/* 622 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -47939,13 +48175,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(192)))
 
 /***/ },
-/* 620 */
+/* 623 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var AutoPrefix = __webpack_require__(621);
-	var ImmutabilityHelper = __webpack_require__(617);
+	var AutoPrefix = __webpack_require__(624);
+	var ImmutabilityHelper = __webpack_require__(620);
 
 	var reTranslate = /((^|\s)translate(3d|X)?\()(\-?[\d]+)/;
 
@@ -48048,14 +48284,14 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(192)))
 
 /***/ },
-/* 621 */
+/* 624 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var isBrowser = __webpack_require__(622);
+	var isBrowser = __webpack_require__(625);
 
-	var Modernizr = isBrowser ? __webpack_require__(623) : undefined;
+	var Modernizr = isBrowser ? __webpack_require__(626) : undefined;
 
 	//Keep track of already prefixed keys so we can skip Modernizr prefixing
 	var prefixedKeys = {};
@@ -48106,7 +48342,7 @@
 	};
 
 /***/ },
-/* 622 */
+/* 625 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -48114,7 +48350,7 @@
 	module.exports = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
 
 /***/ },
-/* 623 */
+/* 626 */
 /***/ function(module, exports) {
 
 	/* Modernizr 2.8.3 (Custom Build) | MIT & BSD
@@ -48378,12 +48614,12 @@
 	})(window, window.document);
 
 /***/ },
-/* 624 */
+/* 627 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var AutoPrefix = __webpack_require__(621);
+	var AutoPrefix = __webpack_require__(624);
 
 	module.exports = {
 
@@ -48418,7 +48654,7 @@
 	};
 
 /***/ },
-/* 625 */
+/* 628 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -48597,14 +48833,14 @@
 	};
 
 /***/ },
-/* 626 */
+/* 629 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var Colors = __webpack_require__(627);
+	var Colors = __webpack_require__(630);
 
 	var Typography = function Typography() {
 	  _classCallCheck(this, Typography);
@@ -48629,7 +48865,7 @@
 	module.exports = new Typography();
 
 /***/ },
-/* 627 */
+/* 630 */
 /***/ function(module, exports) {
 
 	// To include this file in your project:
@@ -48929,7 +49165,7 @@
 	};
 
 /***/ },
-/* 628 */
+/* 631 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -48939,16 +49175,16 @@
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 	var React = __webpack_require__(193);
-	var PureRenderMixin = __webpack_require__(629);
-	var StylePropable = __webpack_require__(616);
-	var Colors = __webpack_require__(627);
-	var Children = __webpack_require__(632);
-	var Events = __webpack_require__(635);
-	var KeyCode = __webpack_require__(636);
-	var FocusRipple = __webpack_require__(637);
-	var TouchRipple = __webpack_require__(647);
-	var DefaultRawTheme = __webpack_require__(643);
-	var ThemeManager = __webpack_require__(645);
+	var PureRenderMixin = __webpack_require__(632);
+	var StylePropable = __webpack_require__(619);
+	var Colors = __webpack_require__(630);
+	var Children = __webpack_require__(635);
+	var Events = __webpack_require__(638);
+	var KeyCode = __webpack_require__(639);
+	var FocusRipple = __webpack_require__(640);
+	var TouchRipple = __webpack_require__(650);
+	var DefaultRawTheme = __webpack_require__(646);
+	var ThemeManager = __webpack_require__(648);
 
 	var styleInjected = false;
 	var listening = false;
@@ -49234,13 +49470,13 @@
 	module.exports = EnhancedButton;
 
 /***/ },
-/* 629 */
+/* 632 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(630);
+	module.exports = __webpack_require__(633);
 
 /***/ },
-/* 630 */
+/* 633 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -49256,7 +49492,7 @@
 
 	'use strict';
 
-	var shallowCompare = __webpack_require__(631);
+	var shallowCompare = __webpack_require__(634);
 
 	/**
 	 * If your React component's render function is "pure", e.g. it will render the
@@ -49291,7 +49527,7 @@
 	module.exports = ReactComponentWithPureRenderMixin;
 
 /***/ },
-/* 631 */
+/* 634 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -49320,13 +49556,13 @@
 	module.exports = shallowCompare;
 
 /***/ },
-/* 632 */
+/* 635 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(193);
-	var createFragment = __webpack_require__(633);
+	var createFragment = __webpack_require__(636);
 
 	module.exports = {
 
@@ -49366,13 +49602,13 @@
 	};
 
 /***/ },
-/* 633 */
+/* 636 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(634).create;
+	module.exports = __webpack_require__(637).create;
 
 /***/ },
-/* 634 */
+/* 637 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -49442,7 +49678,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(192)))
 
 /***/ },
-/* 635 */
+/* 638 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -49487,7 +49723,7 @@
 	};
 
 /***/ },
-/* 636 */
+/* 639 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -49504,19 +49740,19 @@
 	};
 
 /***/ },
-/* 637 */
+/* 640 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(193);
 	var ReactDOM = __webpack_require__(349);
-	var PureRenderMixin = __webpack_require__(629);
-	var StylePropable = __webpack_require__(616);
-	var AutoPrefix = __webpack_require__(621);
-	var Colors = __webpack_require__(627);
-	var Transitions = __webpack_require__(624);
-	var ScaleInTransitionGroup = __webpack_require__(638);
+	var PureRenderMixin = __webpack_require__(632);
+	var StylePropable = __webpack_require__(619);
+	var AutoPrefix = __webpack_require__(624);
+	var Colors = __webpack_require__(630);
+	var Transitions = __webpack_require__(627);
+	var ScaleInTransitionGroup = __webpack_require__(641);
 
 	var pulsateDuration = 750;
 
@@ -49634,7 +49870,7 @@
 	module.exports = FocusRipple;
 
 /***/ },
-/* 638 */
+/* 641 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -49644,12 +49880,12 @@
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 	var React = __webpack_require__(193);
-	var PureRenderMixin = __webpack_require__(629);
-	var ReactTransitionGroup = __webpack_require__(639);
-	var StylePropable = __webpack_require__(616);
-	var ScaleInChild = __webpack_require__(642);
-	var DefaultRawTheme = __webpack_require__(643);
-	var ThemeManager = __webpack_require__(645);
+	var PureRenderMixin = __webpack_require__(632);
+	var ReactTransitionGroup = __webpack_require__(642);
+	var StylePropable = __webpack_require__(619);
+	var ScaleInChild = __webpack_require__(645);
+	var DefaultRawTheme = __webpack_require__(646);
+	var ThemeManager = __webpack_require__(648);
 
 	var ScaleIn = React.createClass({
 	  displayName: 'ScaleIn',
@@ -49741,13 +49977,13 @@
 	module.exports = ScaleIn;
 
 /***/ },
-/* 639 */
+/* 642 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(640);
+	module.exports = __webpack_require__(643);
 
 /***/ },
-/* 640 */
+/* 643 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -49764,7 +50000,7 @@
 	'use strict';
 
 	var React = __webpack_require__(194);
-	var ReactTransitionChildMapping = __webpack_require__(641);
+	var ReactTransitionChildMapping = __webpack_require__(644);
 
 	var assign = __webpack_require__(230);
 	var emptyFunction = __webpack_require__(206);
@@ -49957,7 +50193,7 @@
 	module.exports = ReactTransitionGroup;
 
 /***/ },
-/* 641 */
+/* 644 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -50060,7 +50296,7 @@
 	module.exports = ReactTransitionChildMapping;
 
 /***/ },
-/* 642 */
+/* 645 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50071,12 +50307,12 @@
 
 	var React = __webpack_require__(193);
 	var ReactDOM = __webpack_require__(349);
-	var PureRenderMixin = __webpack_require__(629);
-	var StylePropable = __webpack_require__(616);
-	var AutoPrefix = __webpack_require__(621);
-	var Transitions = __webpack_require__(624);
-	var DefaultRawTheme = __webpack_require__(643);
-	var ThemeManager = __webpack_require__(645);
+	var PureRenderMixin = __webpack_require__(632);
+	var StylePropable = __webpack_require__(619);
+	var AutoPrefix = __webpack_require__(624);
+	var Transitions = __webpack_require__(627);
+	var DefaultRawTheme = __webpack_require__(646);
+	var ThemeManager = __webpack_require__(648);
 
 	var ScaleInChild = React.createClass({
 	  displayName: 'ScaleInChild',
@@ -50203,14 +50439,14 @@
 	module.exports = ScaleInChild;
 
 /***/ },
-/* 643 */
+/* 646 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Colors = __webpack_require__(627);
-	var ColorManipulator = __webpack_require__(625);
-	var Spacing = __webpack_require__(644);
+	var Colors = __webpack_require__(630);
+	var ColorManipulator = __webpack_require__(628);
+	var Spacing = __webpack_require__(647);
 
 	/*
 	 *  Light Theme is the default theme used in material-ui. It is guaranteed to
@@ -50237,7 +50473,7 @@
 	};
 
 /***/ },
-/* 644 */
+/* 647 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -50258,15 +50494,15 @@
 	};
 
 /***/ },
-/* 645 */
+/* 648 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Colors = __webpack_require__(627);
-	var ColorManipulator = __webpack_require__(625);
-	var Extend = __webpack_require__(646);
-	var update = __webpack_require__(618);
+	var Colors = __webpack_require__(630);
+	var ColorManipulator = __webpack_require__(628);
+	var Extend = __webpack_require__(649);
+	var update = __webpack_require__(621);
 
 	module.exports = {
 
@@ -50509,7 +50745,7 @@
 	};
 
 /***/ },
-/* 646 */
+/* 649 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -50563,19 +50799,19 @@
 	module.exports = extend;
 
 /***/ },
-/* 647 */
+/* 650 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(193);
 	var ReactDOM = __webpack_require__(349);
-	var PureRenderMixin = __webpack_require__(629);
-	var ReactTransitionGroup = __webpack_require__(639);
-	var StylePropable = __webpack_require__(616);
-	var Dom = __webpack_require__(648);
-	var ImmutabilityHelper = __webpack_require__(617);
-	var CircleRipple = __webpack_require__(649);
+	var PureRenderMixin = __webpack_require__(632);
+	var ReactTransitionGroup = __webpack_require__(642);
+	var StylePropable = __webpack_require__(619);
+	var Dom = __webpack_require__(651);
+	var ImmutabilityHelper = __webpack_require__(620);
+	var CircleRipple = __webpack_require__(652);
 
 	var TouchRipple = React.createClass({
 	  displayName: 'TouchRipple',
@@ -50729,7 +50965,7 @@
 	module.exports = TouchRipple;
 
 /***/ },
-/* 648 */
+/* 651 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -50806,7 +51042,7 @@
 	};
 
 /***/ },
-/* 649 */
+/* 652 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50817,11 +51053,11 @@
 
 	var React = __webpack_require__(193);
 	var ReactDOM = __webpack_require__(349);
-	var PureRenderMixin = __webpack_require__(629);
-	var StylePropable = __webpack_require__(616);
-	var AutoPrefix = __webpack_require__(621);
-	var Transitions = __webpack_require__(624);
-	var Colors = __webpack_require__(627);
+	var PureRenderMixin = __webpack_require__(632);
+	var StylePropable = __webpack_require__(619);
+	var AutoPrefix = __webpack_require__(624);
+	var Transitions = __webpack_require__(627);
+	var Colors = __webpack_require__(630);
 
 	var CircleRipple = React.createClass({
 	  displayName: 'CircleRipple',
@@ -50910,7 +51146,7 @@
 	module.exports = CircleRipple;
 
 /***/ },
-/* 650 */
+/* 653 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50920,12 +51156,12 @@
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 	var React = __webpack_require__(193);
-	var PureRenderMixin = __webpack_require__(629);
-	var StylePropable = __webpack_require__(616);
-	var PropTypes = __webpack_require__(651);
-	var Transitions = __webpack_require__(624);
-	var DefaultRawTheme = __webpack_require__(643);
-	var ThemeManager = __webpack_require__(645);
+	var PureRenderMixin = __webpack_require__(632);
+	var StylePropable = __webpack_require__(619);
+	var PropTypes = __webpack_require__(654);
+	var Transitions = __webpack_require__(627);
+	var DefaultRawTheme = __webpack_require__(646);
+	var ThemeManager = __webpack_require__(648);
 
 	var Paper = React.createClass({
 	  displayName: 'Paper',
@@ -51015,7 +51251,7 @@
 	module.exports = Paper;
 
 /***/ },
-/* 651 */
+/* 654 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51035,7 +51271,154 @@
 	};
 
 /***/ },
-/* 652 */
+/* 655 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _reactRelay = __webpack_require__(350);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var IntroduceShipMutation = (function (_Relay$Mutation) {
+	  _inherits(IntroduceShipMutation, _Relay$Mutation);
+
+	  function IntroduceShipMutation() {
+	    _classCallCheck(this, IntroduceShipMutation);
+
+	    _get(Object.getPrototypeOf(IntroduceShipMutation.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(IntroduceShipMutation, [{
+	    key: 'getMutation',
+
+	    // viewer: () => Relay.QL`
+	    //  fragment on Query {
+	    //      factions {
+	    //           factionId,
+	    //           factionName,
+	    //           ships {
+	    //               id,
+	    //               shipName
+	    //           }
+	    //       }
+	    //  }`
+
+	    // This method should return a GraphQL operation that represents
+	    // the mutation to be performed. This presumes that the server
+	    // implements a mutation type named introduceShip.
+	    value: function getMutation() {
+	      return (function () {
+	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	        return new GraphQL.Mutation('IntroduceShipMutation', 'IntroduceShipPayload', new GraphQL.Callv('introduceShip', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
+	          parentType: 'IntroduceShipPayload',
+	          generated: true,
+	          requisite: true
+	        })], null, {
+	          inputType: 'IntroduceShipInput!'
+	        });
+	      })();
+	    }
+
+	    // Use this method to prepare the variables that will be used as
+	    // input to the mutation. Our ‘likeStory’ mutation takes exactly
+	    // one variable as input – the ID of the story to like.
+	  }, {
+	    key: 'getVariables',
+	    value: function getVariables() {
+	      return {
+	        factionId: this.props.faction.factionId,
+	        shipName: this.props.ship.shipName
+	      };
+	    }
+
+	    // Use this method to design a ‘fat query’ – one that represents every
+	    // field in your data model that could change as a result of this mutation.
+	    // Introducing a ship will add it to a faction's fleet, so we
+	    // specify the faction's ships connection as part of the fat query.
+	  }, {
+	    key: 'getFatQuery',
+	    value: function getFatQuery() {
+	      return (function () {
+	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	        return new GraphQL.QueryFragment('IntroduceShipMutation', 'IntroduceShipPayload', [new GraphQL.Field('faction', [new GraphQL.Field('ships', [new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'Ship',
+	          requisite: true
+	        }), new GraphQL.Field('shipName', null, null, null, null, null, {
+	          parentType: 'Ship'
+	        })], null, null, null, null, {
+	          parentType: 'Faction',
+	          plural: true
+	        })], null, null, null, null, {
+	          parentType: 'IntroduceShipPayload'
+	        }), new GraphQL.Field('newShipEdge', [new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'Ship',
+	          requisite: true
+	        }), new GraphQL.Field('shipName', null, null, null, null, null, {
+	          parentType: 'Ship'
+	        })], null, null, null, null, {
+	          parentType: 'IntroduceShipPayload'
+	        })]);
+	      })();
+	    }
+	  }, {
+	    key: 'getConfigs',
+	    value: function getConfigs() {
+	      return [{
+	        type: 'RANGE_ADD',
+	        parentName: 'faction',
+	        parentID: this.props.faction.factionId,
+	        connectionName: 'ships',
+	        edgeName: 'newShipEdge',
+	        rangeBehaviors: {
+	          // When the ships connection is not under the influence
+	          // of any call, append the ship to the end of the connection
+	          '': 'append',
+	          // Prepend the ship, wherever the connection is sorted by age
+	          'orderby(newest)': 'prepend'
+	        }
+	      }];
+	    }
+	  }], [{
+	    key: 'fragments',
+
+	    // This mutation declares a dependency on the faction
+	    // into which this ship is to be introduced.
+	    value: {
+	      faction: function faction() {
+	        return (function () {
+	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	          return new GraphQL.QueryFragment('IntroduceShipMutation', 'Faction', [new GraphQL.Field('factionId', null, null, null, null, null, {
+	            parentType: 'Faction'
+	          })]);
+	        })();
+	      }
+	    },
+	    enumerable: true
+	  }]);
+
+	  return IntroduceShipMutation;
+	})(_reactRelay2['default'].Mutation);
+
+	exports['default'] = IntroduceShipMutation;
+	module.exports = exports['default'];
+
+/***/ },
+/* 656 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51095,18 +51478,18 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 653 */
+/* 657 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function injectTapEventPlugin () {
 	  __webpack_require__(222).injection.injectEventPluginsByName({
-	    "TapEventPlugin":       __webpack_require__(654)
+	    "TapEventPlugin":       __webpack_require__(658)
 	  });
 	};
 
 
 /***/ },
-/* 654 */
+/* 658 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51134,10 +51517,10 @@
 	var EventPluginUtils = __webpack_require__(224);
 	var EventPropagators = __webpack_require__(264);
 	var SyntheticUIEvent = __webpack_require__(278);
-	var TouchEventUtils = __webpack_require__(655);
+	var TouchEventUtils = __webpack_require__(659);
 	var ViewportMetrics = __webpack_require__(229);
 
-	var keyOf = __webpack_require__(656);
+	var keyOf = __webpack_require__(660);
 	var topLevelTypes = EventConstants.topLevelTypes;
 
 	var isStartish = EventPluginUtils.isStartish;
@@ -51281,7 +51664,7 @@
 
 
 /***/ },
-/* 655 */
+/* 659 */
 /***/ function(module, exports) {
 
 	/**
@@ -51329,7 +51712,7 @@
 
 
 /***/ },
-/* 656 */
+/* 660 */
 /***/ function(module, exports) {
 
 	/**

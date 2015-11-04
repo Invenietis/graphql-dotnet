@@ -2,15 +2,15 @@
 
 namespace GraphQL.Tests
 {
-    public class IntroduceShipPayload : ObjectGraphType
+    public class IntroduceShipPayload : OutputGraphType<IntroduceShipInput>
     {
         public IntroduceShipPayload()
         {
             Name = "IntroduceShipPayload";
 
-            Field<Ship>("ship");
-            Field<Faction>("faction");
-            Field<StringGraphType>("clientMutationId");
+            Field<NonNullGraphType<Ship>>( "newShipEdge" );
+            Field<NonNullGraphType<Faction>>( "faction" );
+            Field<StringGraphType>( "clientMutationId" );
         }
 
         public Ship Ship { get; set; }

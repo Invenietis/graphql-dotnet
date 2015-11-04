@@ -44,24 +44,22 @@ namespace GraphQL.Types
         }
 
         public void Mutation<TInput, TPayload>( string name, Func<TInput, ResolveFieldContext, TPayload> resolve )
-            where TInput : GraphType
-            where TPayload : class
+            where TInput : InputObjectGraphType
+            where TPayload : OutputGraphType<TInput>
         {
             var arguments = new QueryArguments(new[]
             {
-                new QueryArgument<NonNullGraphType<StringGraphType>>
+                new QueryArgument<NonNullGraphType<TInput>>
                 {
-                    Name = "input",
-                    Description = "input"
+                    Name = "input"
                 }
             });
-
-            Field<TInput>( name, null, arguments, ctx => resolve( ctx.Arguments.First().Value as TInput, ctx ) );
+            Field<TPayload>( name, null, arguments, ctx => resolve( ctx.Arguments.First().Value as TInput, ctx ) );
         }
 
-        public void Mutation<TInput, TPayload, THandler>( string name ) 
-            where TInput : GraphType
-            where TPayload : class
+        public void Mutation<TInput, TPayload, THandler>( string name )
+            where TInput : InputObjectGraphType
+            where TPayload : OutputGraphType<TInput>
             where THandler : Handlers.MutationHandler<TInput, TPayload>
         {
             Mutation<TInput, TPayload>( name, ( input, ctx ) =>

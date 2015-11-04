@@ -11,7 +11,7 @@ namespace GraphQL.Types
 
         public override object Coerce(object value)
         {
-            throw new NotImplementedException();
+            return value.ToString();
         }
     }
 }

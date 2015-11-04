@@ -85,6 +85,7 @@
     <Compile Include="StarWars\StarWarsQuery.cs" />
     <Compile Include="QueryTestBase.cs" />
     <Compile Include="StarWars\StarWarsSchema.cs" />
+    <Compile Include="StarWars\_DatabaseIntializer.cs" />
     <Compile Include="TestAttribute.cs" />
     <Compile Include="Expect.cs" />
     <Compile Include="Types\BooleanGraphTypeTests.cs" />
