@@ -12,20 +12,20 @@ namespace GraphQL.Relay
         private const string DUMMY_CURSOR_PREFIX = "simple-cursor";
 
         readonly IList<T> data;
-        private static Connection EmptyConnection { get; } = new Connection { PageInfo = new PageInfo() };
+        private static Connection<T> EmptyConnection { get; } = new Connection<T> { PageInfo = new PageInfo() };
 
         public SimpleListConnection( List<T> data )
         {
             this.data = data;
         }
 
-        private List<Relay.Edge> buildEdges()
+        private List<Edge<T>> buildEdges()
         {
-            List<Relay.Edge> edges = new List<Relay.Edge>();
+            List<Edge<T>> edges = new List<Edge<T>>();
             int ix = 0;
             foreach( var o in data )
             {
-                edges.Add( new Relay.Edge( o, new Relay.ConnectionCursor( CreateCursor( ix++ ) ) ) );
+                edges.Add( new Edge<T>( o, new ConnectionCursor( CreateCursor( ix++ ) ) ) );
             }
             return edges;
         }
@@ -33,8 +33,7 @@ namespace GraphQL.Relay
 
         public object Resolve( ResolveFieldContext environment )
         {
-            List<Edge> edges = buildEdges();
-
+            var edges = buildEdges();
 
             int afterOffset = GetOffsetFromCursor(environment.Arguments["after"], -1);
             int begin = Math.Max(afterOffset, -1) + 1;
@@ -68,8 +67,8 @@ namespace GraphQL.Relay
                 return EmptyConnection;
             }
 
-            Edge firstEdge = edges[0];
-            Edge lastEdge = edges[edges.Count - 1];
+            var firstEdge = edges[0];
+            var lastEdge = edges[edges.Count - 1];
 
             PageInfo pageInfo = new PageInfo();
             pageInfo.StartCursor = firstEdge.Cursor;
@@ -77,7 +76,7 @@ namespace GraphQL.Relay
             pageInfo.HasPreviousPage = !firstEdge.Cursor.Equals( firstPresliceCursor );
             pageInfo.HasNextPage = !lastEdge.Cursor.Equals( lastPresliceCursor );
 
-            Connection connection = new Connection
+            var connection = new Connection<T>
             {
                 Edges = edges,
                 PageInfo = pageInfo

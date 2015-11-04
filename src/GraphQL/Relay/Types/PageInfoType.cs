@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GraphQL.Types;
 
-namespace GraphQL.Types.Relay
+namespace GraphQL.Relay.Types
 {
     public class PageInfoType : ObjectGraphType
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GraphQL.Types;
 
-namespace GraphQL.Types.Relay
+namespace GraphQL.Relay.Types
 {
     public sealed class EdgeType<TType> : ObjectGraphType where TType : GraphType
     {

@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 namespace GraphQL.Relay
 {
 
-    public class Connection
+    public class Connection<T>
     {
         public Connection()
         {
-            Edges = new List<Edge>();
+            Edges = new List<Edge<T>>();
         }
 
-        public IList<Edge> Edges { get; set; }
+        public IList<Edge<T>> Edges { get; set; }
 
         public PageInfo PageInfo { get; set; }
     }

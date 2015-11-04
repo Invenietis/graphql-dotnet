@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GraphQL.Types;
 
-namespace GraphQL.Types.Relay
+namespace GraphQL.Relay.Types
 {
 
     public abstract class NodeInterface : InterfaceGraphType
@@ -16,5 +16,6 @@ namespace GraphQL.Types.Relay
             Field<NonNullGraphType<IdGraphType>>( "id" );
             ResolveType = resolver;
         }
+
     }
 }
