@@ -24,7 +24,19 @@ namespace GraphQL.Relay.TodoMVC
         {
             // Add the platform handler to the request pipeline.
             app.UseStaticFiles();
-            app.UseGraphQL( "/graphql", new TodoMVCSchema(), () => new DB.TodoMVCDbContext() );
+            using( var db = new DB.TodoMVCDbContext() )
+            {
+                if( db.Users.Count() == 0 )
+                {
+                    db.Users.Add( new DB.User { Id = 0, UserName = "Anonymous" } );
+                    db.SaveChanges();
+                }
+            }
+
+            app.UseGraphQL( "/graphql", new TodoMVCSchema
+                {
+                    DbContextFactory = () => new DB.TodoMVCDbContext()
+                } );
         }
     }
 }

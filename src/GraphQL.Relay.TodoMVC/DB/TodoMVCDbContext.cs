@@ -8,9 +8,21 @@ namespace GraphQL.Relay.TodoMVC.DB
 {
     public class TodoMVCDbContext : DbContext
     {
+        public TodoMVCDbContext()
+        {
+            Database.EnsureCreated();
+        }
+
         protected override void OnModelCreating( ModelBuilder modelBuilder )
         {
             base.OnModelCreating( modelBuilder );
+        }
+
+        protected override void OnConfiguring( DbContextOptionsBuilder optionsBuilder )
+        {
+            base.OnConfiguring( optionsBuilder );
+            optionsBuilder.UseSqlServer( "Server=.;Database=GraphQLRelay;Integrated Security=SSPI;" );
+
         }
 
         public DbSet<Todo> Todos { get; set; }
@@ -25,7 +37,7 @@ namespace GraphQL.Relay.TodoMVC.DB
             Todos = new HashSet<Todo>();
         }
 
-        internal static readonly User Current = new User() { Id = 0 };
+        internal static readonly User Current = new User() { Id = 1 };
 
         public int Id { get; set; }
 

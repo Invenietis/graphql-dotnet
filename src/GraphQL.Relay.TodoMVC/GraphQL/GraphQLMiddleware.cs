@@ -13,33 +13,28 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace GraphQL.Relay
 {
-    public class GraphQLMiddleware<TContext> where TContext : IDisposable
+    public class GraphQLMiddleware
     {
         private readonly RequestDelegate _next;
         readonly Schema _schema;
         readonly IDocumentExecuter _executer;
         readonly IDocumentWriter _writer;
-        readonly Func<TContext> _context;
 
-        public GraphQLMiddleware( RequestDelegate next, Schema schema, Func<TContext> context )
+        public GraphQLMiddleware( RequestDelegate next, Schema schema )
         {
             _next = next;
             _schema = schema;
             _executer = new DocumentExecuter();
             _writer = new DocumentWriter( Formatting.Indented );
-            _context = context;
         }
 
         public async Task Invoke( HttpContext httpContext )
         {
-            using( var dbContext = _context() )
-            {
-                var query = GetQuery( httpContext );
-                var result = await _executer.ExecuteAsync( _schema, dbContext, query.Query, null, query.Variables, httpContext.RequestAborted );
+            var query = GetQuery( httpContext );
+            var result = await _executer.ExecuteAsync( _schema, null, query.Query, null, query.Variables, httpContext.RequestAborted );
 
-                var resultJson = _writer.Write( result );
-                await httpContext.Response.WriteAsync( resultJson, httpContext.RequestAborted );
-            }
+            var resultJson = _writer.Write( result );
+            await httpContext.Response.WriteAsync( resultJson, httpContext.RequestAborted );
         }
 
 
@@ -61,13 +56,13 @@ namespace GraphQL.Relay
     // Extension method used to add the middleware to the HTTP request pipeline.
     public static class GraphQLExtensions
     {
-        public static IApplicationBuilder UseGraphQL<TContext>( this IApplicationBuilder builder, PathString routePrefix, Schema schema, Func<TContext> context ) where TContext : IDisposable
+        public static IApplicationBuilder UseGraphQL( this IApplicationBuilder builder, PathString routePrefix, Schema schema )
         {
             if( string.IsNullOrWhiteSpace( routePrefix ) ) throw new ArgumentNullException( nameof( routePrefix ) );
 
             return builder.Map( routePrefix, ( app ) =>
             {
-                app.UseMiddleware<GraphQLMiddleware<TContext>>( schema, context );
+                app.UseMiddleware<GraphQLMiddleware>( schema );
             } );
         }
     }

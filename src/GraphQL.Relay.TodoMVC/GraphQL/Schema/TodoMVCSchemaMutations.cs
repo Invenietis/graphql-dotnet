@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GraphQL.Types;
-using GraphQL.Types.Relay;
+using GraphQL.Relay.Types;
 
 namespace GraphQL.Relay.TodoMVC
 {
@@ -15,13 +15,46 @@ namespace GraphQL.Relay.TodoMVC
 
             Mutation<AddTodoInput, AddTodoPayload>( "addTodo", resolve: ( input, ctx ) =>
             {
-                // TODO: Mutate
-                return null;
+                using( var db = ctx.Schema.As<TodoMVCSchema>().OpenDatabase() )
+                {
+                    var currentUser = DB.User.Current;
+                    var entity = db.Todos.Add( new DB.Todo
+                    {
+                        Text = input.Text,
+                        Completed = false,
+                        UserId = currentUser.Id
+                    } );
+                    db.SaveChanges();
+
+                    currentUser.Todos.Add( entity.Entity );
+                    return new AddTodoPayload
+                    {
+                        TodoEdge = new Edge<DB.Todo>( entity.Entity, new ConnectionCursor( "" ) ),
+                        Viewer = currentUser,
+                        ClientMutationId = input.ClientMutationId
+                    };
+                }
             } );
 
             Mutation<ChangeTodoStatusInput, ChangeTodoStatusPayload>( "changeTodoStatus", ( input, ctx ) =>
             {
-                return null;
+                using( var db = ctx.Schema.As<TodoMVCSchema>().OpenDatabase() )
+                {
+                    var currentUser = DB.User.Current;
+                    int todoId = int.Parse( ResolvedGlobalId.FromGlobalId( input.Id ).Id);
+                    var todo = db.Todos.SingleOrDefault( x => x.Id == todoId );
+                    if( todo != null )
+                    {
+                        todo.Completed = input.Complete;
+                        db.SaveChanges();
+                    }
+                    return new ChangeTodoStatusPayload
+                    {
+                        Todo = todo,
+                        Viewer = todo.User,
+                        ClientMutationId = input.ClientMutationId
+                    };
+                }
             } );
             Mutation<MarkAllTodosInput, MarkAllTodosPayload>( "markAllTodos", ( input, ctx ) =>
              {
@@ -49,6 +82,10 @@ namespace GraphQL.Relay.TodoMVC
             Name = "AddTodoInput";
             Field<NonNullGraphType<StringGraphType>>( "text" );
         }
+
+        public string Text { get; set; }
+
+        public string ClientMutationId { get; set; }
     }
 
     public class AddTodoPayload : OutputGraphType<AddTodoInput>
@@ -57,14 +94,14 @@ namespace GraphQL.Relay.TodoMVC
         {
             Name = "AddTodoPayload";
 
-            Field<UserType>( "viewer", resolve: ctx => DB.User.Current );
-            Field<EdgeType<TodoType>>( "todoEdge", resolve: ctx =>
-            {
-                //ctx.Source.
-                return null;
-                //return new Edge( todo );
-            } );
+            Field<UserType>( "viewer" );
+            Field<EdgeType<TodoType>>( "todoEdge" );
         }
+
+        public DB.User Viewer { get; set; }
+
+        public Edge<DB.Todo> TodoEdge { get; set; }
+        public string ClientMutationId { get; internal set; }
     }
 
     public class ChangeTodoStatusInput : InputObjectGraphType
@@ -75,6 +112,11 @@ namespace GraphQL.Relay.TodoMVC
             Field<NonNullGraphType<IdGraphType>>( "id" );
             Field<NonNullGraphType<BooleanGraphType>>( "complete" );
         }
+
+        public string Id { get; set; }
+
+        public bool Complete { get; set; }
+        public string ClientMutationId { get; set; }
     }
 
     public class ChangeTodoStatusPayload : OutputGraphType<ChangeTodoStatusInput>
@@ -83,8 +125,13 @@ namespace GraphQL.Relay.TodoMVC
         {
             Name = "ChangeTodoStatusPayload";
             Field<TodoType>( "todo" );
-            Field<UserType>( "viewer", resolve: ctx => DB.User.Current );
+            Field<UserType>( "viewer" );
         }
+
+        public DB.User Viewer { get; set; }
+
+        public DB.Todo Todo { get; set; }
+        public string ClientMutationId { get; set; }
     }
 
 
