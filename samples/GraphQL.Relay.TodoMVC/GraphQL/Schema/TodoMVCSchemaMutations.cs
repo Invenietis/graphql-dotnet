@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GraphQL.Types;
 using GraphQL.Relay.Types;
+using Microsoft.Data.Entity;
 
 namespace GraphQL.Relay.TodoMVC
 {
@@ -40,37 +41,115 @@ namespace GraphQL.Relay.TodoMVC
             {
                 using( var db = ctx.Schema.As<TodoMVCSchema>().OpenDatabase() )
                 {
-                    var currentUser = DB.User.Current;
-                    int todoId = int.Parse( ResolvedGlobalId.FromGlobalId( input.Id ).Id);
-                    var todo = db.Todos.SingleOrDefault( x => x.Id == todoId );
-                    if( todo != null )
+                    int todoId;
+                    if( int.TryParse( ResolvedGlobalId.FromGlobalId( input.Id ).Id, out todoId ) )
                     {
-                        todo.Completed = input.Complete;
-                        db.SaveChanges();
+                        var currentUser = DB.User.Current;
+                        var result = new ChangeTodoStatusPayload
+                        {
+                            ClientMutationId = input.ClientMutationId,
+                            Viewer = db.Users.Include( x => x.Todos ).SingleOrDefault( u => u.Id == DB.User.Current.Id )
+                        };
+
+                        result.Todo = result.Viewer.Todos.SingleOrDefault( x => x.Id == todoId );
+                        if( result.Todo != null )
+                        {
+                            result.Todo.Completed = input.Complete;
+                            db.SaveChanges();
+                        }
+                        return result;
                     }
-                    return new ChangeTodoStatusPayload
-                    {
-                        Todo = todo,
-                        Viewer = todo.User,
-                        ClientMutationId = input.ClientMutationId
-                    };
+                    throw new ArgumentException( "Todo not found." );
                 }
             } );
             Mutation<MarkAllTodosInput, MarkAllTodosPayload>( "markAllTodos", ( input, ctx ) =>
              {
-                 return null;
+                 using( var db = ctx.Schema.As<TodoMVCSchema>().OpenDatabase() )
+                 {
+                     var result = new MarkAllTodosPayload
+                     {
+                         ClientMutationId = input.ClientMutationId
+                     };
+                     result.Viewer = db.Users.Include( x => x.Todos ).SingleOrDefault( u => u.Id == DB.User.Current.Id );
+
+                     // TODO: uses update from XX output clause
+                     foreach( var todo in result.Viewer.Todos )
+                     {
+                         if( todo.Completed != input.Complete )
+                         {
+                             todo.Completed = input.Complete;
+                             result.ChangedTodos.Add( todo );
+                         }
+                     }
+                     db.SaveChanges();
+                     return result;
+                 }
              } );
             Mutation<RemoveCompletedTodosInput, RemoveCompletedTodosPayload>( "removeCompletedTodos", ( input, ctx ) =>
             {
-                return null;
+                using( var db = ctx.Schema.As<TodoMVCSchema>().OpenDatabase() )
+                {
+                    var result = new RemoveCompletedTodosPayload
+                    {
+                        ClientMutationId = input.ClientMutationId
+                    };
+                    result.Viewer = db.Users.Include( x => x.Todos ).SingleOrDefault( u => u.Id == DB.User.Current.Id );
+
+                    // TODO: uses delete from XX output clause
+                    result.DeletedTodoIds = result.Viewer.Todos.Where( t => t.Completed ).Select( t => ResolvedGlobalId.ToGlobalId( "Todo", t.Id.ToString() ) ).ToList();
+                    db.RemoveRange( result.Viewer.Todos.Where( t => t.Completed ) );
+                    db.SaveChanges();
+                    return result;
+                }
             } );
             Mutation<RemoveTodoInput, RemoveTodoPayload>( "removeTodo", ( input, ctx ) =>
             {
-                return null;
+                var gId = ResolvedGlobalId.FromGlobalId(input.Id);
+                int todoId;
+                if( Int32.TryParse( gId.Id, out todoId ) )
+                {
+                    using( var db = ctx.Schema.As<TodoMVCSchema>().OpenDatabase() )
+                    {
+                        var result = new RemoveTodoPayload
+                        {
+                            ClientMutationId = input.ClientMutationId
+                        };
+                        result.Viewer = db.Users.Include( x => x.Todos ).SingleOrDefault( u => u.Id == DB.User.Current.Id );
+                        var todo = result.Viewer.Todos.SingleOrDefault( t => t.Id == todoId );
+                        if( todo != null )
+                        {
+                            db.Remove( todo );
+                            db.SaveChanges();
+                            result.DeletedTodoId = ResolvedGlobalId.ToGlobalId( gId.Type, todoId.ToString() );
+                            return result;
+                        }
+                    }
+                }
+                throw new ArgumentException( "Todo not found for current viewer" );
             } );
             Mutation<RenameTodoInput, RenameTodoPayload>( "renameTodo", ( input, ctx ) =>
             {
-                return null;
+                var gId = ResolvedGlobalId.FromGlobalId(input.Id);
+                int todoId;
+                if( int.TryParse( gId.Id, out todoId ) )
+                {
+                    using( var db = ctx.Schema.As<TodoMVCSchema>().OpenDatabase() )
+                    {
+                        var result = new RenameTodoPayload
+                        {
+                            ClientMutationId = input.ClientMutationId
+                        };
+                        result.Viewer = db.Users.Include( x => x.Todos ).SingleOrDefault( u => u.Id == DB.User.Current.Id );
+                        result.Todo = result.Viewer.Todos.SingleOrDefault( t => t.Id == todoId );
+                        if( result.Todo != null )
+                        {
+                            result.Todo.Text = input.Text;
+                            db.SaveChanges();
+                        }
+                        return result;
+                    }
+                }
+                throw new ArgumentException( "Todo not found for current viewer" );
             } );
         }
     }
@@ -142,6 +221,10 @@ namespace GraphQL.Relay.TodoMVC
             Name = "MarkAllTodosInput";
             Field<NonNullGraphType<BooleanGraphType>>( "complete" );
         }
+
+        public string ClientMutationId { get; set; }
+        public bool Complete { get; set; }
+
     }
     public class MarkAllTodosPayload : OutputGraphType<MarkAllTodosInput>
     {
@@ -155,7 +238,13 @@ namespace GraphQL.Relay.TodoMVC
                 return null;
             } );
             Field<UserType>( "viewer", resolve: ctx => DB.User.Current );
+
+            ChangedTodos = new List<DB.Todo>();
         }
+
+        public IList<DB.Todo> ChangedTodos { get; set; }
+        public DB.User Viewer { get; set; }
+        public string ClientMutationId { get; set; }
     }
 
     public class RemoveCompletedTodosInput : InputObjectGraphType
@@ -164,6 +253,7 @@ namespace GraphQL.Relay.TodoMVC
         {
             Name = "RemoveCompletedTodosInput";
         }
+        public string ClientMutationId { get; set; }
     }
 
     public class RemoveCompletedTodosPayload : OutputGraphType<RemoveCompletedTodosInput>
@@ -174,6 +264,9 @@ namespace GraphQL.Relay.TodoMVC
             Field<ListGraphType<StringGraphType>>( "deletedTodoIds" );
             Field<UserType>( "viewer", resolve: ctx => DB.User.Current );
         }
+        public IList<string> DeletedTodoIds { get; set; }
+        public DB.User Viewer { get; set; }
+        public string ClientMutationId { get; set; }
     }
 
     public class RemoveTodoInput : InputObjectGraphType
@@ -183,6 +276,9 @@ namespace GraphQL.Relay.TodoMVC
             Name = "RemoveTodoInput";
             Field<NonNullGraphType<IdGraphType>>( "id" );
         }
+
+        public string Id { get; set; }
+        public string ClientMutationId { get; set; }
     }
 
     public class RemoveTodoPayload : OutputGraphType<RemoveTodoInput>
@@ -193,6 +289,11 @@ namespace GraphQL.Relay.TodoMVC
             Field<NonNullGraphType<IdGraphType>>( "deletedTodoId" );
             Field<UserType>( "viewer", resolve: ctx => DB.User.Current );
         }
+
+        public string DeletedTodoId { get; set; }
+
+        public DB.User Viewer { get; set; }
+        public string ClientMutationId { get; set; }
     }
 
     public class RenameTodoInput : InputObjectGraphType
@@ -203,6 +304,11 @@ namespace GraphQL.Relay.TodoMVC
             Field<NonNullGraphType<IdGraphType>>( "id" );
             Field<NonNullGraphType<StringGraphType>>( "text" );
         }
+
+        public string Id { get; set; }
+
+        public string Text { get; set; }
+        public string ClientMutationId { get; set; }
     }
     public class RenameTodoPayload : OutputGraphType<RenameTodoInput>
     {
@@ -212,5 +318,10 @@ namespace GraphQL.Relay.TodoMVC
             Field<TodoType>( "todo" );
             Field<UserType>( "viewer", resolve: ctx => DB.User.Current );
         }
+
+        public DB.Todo Todo { get; set; }
+
+        public DB.User Viewer { get; set; }
+        public string ClientMutationId { get; set; }
     }
 }
