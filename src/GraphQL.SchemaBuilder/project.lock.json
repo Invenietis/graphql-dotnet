@@ -534,7 +534,7 @@
   "libraries": {
     "GraphQL/1.0.0": {
       "type": "project",
-      "path": "../wrap/GraphQL/project.json"
+      "path": "../../wrap/GraphQL/project.json"
     },
     "Antlr4/4.5.0-alpha002": {
       "type": "package",

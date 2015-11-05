@@ -18,6 +18,20 @@
           "lib/net45/Antlr4.Runtime.dll": {}
         }
       },
+      "EntityFramework/6.1.3": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.ComponentModel.DataAnnotations"
+        ],
+        "compile": {
+          "lib/net45/EntityFramework.dll": {},
+          "lib/net45/EntityFramework.SqlServer.dll": {}
+        },
+        "runtime": {
+          "lib/net45/EntityFramework.dll": {},
+          "lib/net45/EntityFramework.SqlServer.dll": {}
+        }
+      },
       "EntityFramework.Core/7.0.0-beta8": {
         "type": "package",
         "dependencies": {
@@ -98,6 +112,23 @@
           "lib/net45/EntityFramework.SqlServer.dll": {}
         }
       },
+      "Fixie/1.0.0.29": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Fixie.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Fixie.Console.exe": {},
+          "lib/net45/Fixie.Console.x86.exe": {},
+          "lib/net45/Fixie.dll": {},
+          "lib/net45/Fixie.TestDriven.dll": {},
+          "lib/net45/Fixie.VisualStudio.TestAdapter.dll": {},
+          "lib/net45/Mono.Cecil.dll": {},
+          "lib/net45/Mono.Cecil.Pdb.dll": {},
+          "lib/net45/Mono.Cecil.Rocks.dll": {},
+          "lib/net45/TestDriven.Framework.dll": {}
+        }
+      },
       "GraphQL/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
@@ -106,6 +137,14 @@
           "Antlr4.Runtime": "4.5.0-alpha002",
           "ILRepack": "2.0.2",
           "Newtonsoft.Json": "7.0.1"
+        }
+      },
+      "GraphQL.Relay/1.0.0": {
+        "type": "project",
+        "framework": "DNX,Version=v4.5.1",
+        "dependencies": {
+          "GraphQL": "1.0.0",
+          "Microsoft.AspNet.Http.Abstractions": "1.0.0-rc1-15883"
         }
       },
       "GraphQL.SchemaBuilder/1.0.0": {
@@ -118,6 +157,17 @@
           "Microsoft.Extensions.Configuration.CommandLine": "1.0.0-rc1-15696",
           "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-15696",
           "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-16048"
+        }
+      },
+      "GraphQL.Tests/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5.1",
+        "dependencies": {
+          "EntityFramework": "6.1.3",
+          "Fixie": "1.0.0.29",
+          "GraphQL": "1.0.0",
+          "Newtonsoft.Json": "7.0.1",
+          "Should": "1.1.20"
         }
       },
       "ILRepack/2.0.2": {
@@ -952,6 +1002,15 @@
         },
         "runtime": {
           "lib/net45/Remotion.Linq.dll": {}
+        }
+      },
+      "Should/1.1.20": {
+        "type": "package",
+        "compile": {
+          "lib/Should.dll": {}
+        },
+        "runtime": {
+          "lib/Should.dll": {}
         }
       },
       "System.Collections.Immutable/1.1.36": {
@@ -1021,6 +1080,20 @@
           "lib/net45/Antlr4.Runtime.dll": {}
         }
       },
+      "EntityFramework/6.1.3": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.ComponentModel.DataAnnotations"
+        ],
+        "compile": {
+          "lib/net45/EntityFramework.dll": {},
+          "lib/net45/EntityFramework.SqlServer.dll": {}
+        },
+        "runtime": {
+          "lib/net45/EntityFramework.dll": {},
+          "lib/net45/EntityFramework.SqlServer.dll": {}
+        }
+      },
       "EntityFramework.Core/7.0.0-beta8": {
         "type": "package",
         "dependencies": {
@@ -1101,6 +1174,23 @@
           "lib/net45/EntityFramework.SqlServer.dll": {}
         }
       },
+      "Fixie/1.0.0.29": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Fixie.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Fixie.Console.exe": {},
+          "lib/net45/Fixie.Console.x86.exe": {},
+          "lib/net45/Fixie.dll": {},
+          "lib/net45/Fixie.TestDriven.dll": {},
+          "lib/net45/Fixie.VisualStudio.TestAdapter.dll": {},
+          "lib/net45/Mono.Cecil.dll": {},
+          "lib/net45/Mono.Cecil.Pdb.dll": {},
+          "lib/net45/Mono.Cecil.Rocks.dll": {},
+          "lib/net45/TestDriven.Framework.dll": {}
+        }
+      },
       "GraphQL/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
@@ -1109,6 +1199,14 @@
           "Antlr4.Runtime": "4.5.0-alpha002",
           "ILRepack": "2.0.2",
           "Newtonsoft.Json": "7.0.1"
+        }
+      },
+      "GraphQL.Relay/1.0.0": {
+        "type": "project",
+        "framework": "DNX,Version=v4.5.1",
+        "dependencies": {
+          "GraphQL": "1.0.0",
+          "Microsoft.AspNet.Http.Abstractions": "1.0.0-rc1-15883"
         }
       },
       "GraphQL.SchemaBuilder/1.0.0": {
@@ -1121,6 +1219,17 @@
           "Microsoft.Extensions.Configuration.CommandLine": "1.0.0-rc1-15696",
           "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-15696",
           "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-16048"
+        }
+      },
+      "GraphQL.Tests/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5.1",
+        "dependencies": {
+          "EntityFramework": "6.1.3",
+          "Fixie": "1.0.0.29",
+          "GraphQL": "1.0.0",
+          "Newtonsoft.Json": "7.0.1",
+          "Should": "1.1.20"
         }
       },
       "ILRepack/2.0.2": {
@@ -1955,6 +2064,15 @@
         },
         "runtime": {
           "lib/net45/Remotion.Linq.dll": {}
+        }
+      },
+      "Should/1.1.20": {
+        "type": "package",
+        "compile": {
+          "lib/Should.dll": {}
+        },
+        "runtime": {
+          "lib/Should.dll": {}
         }
       },
       "System.Collections.Immutable/1.1.36": {
@@ -2024,6 +2142,20 @@
           "lib/net45/Antlr4.Runtime.dll": {}
         }
       },
+      "EntityFramework/6.1.3": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.ComponentModel.DataAnnotations"
+        ],
+        "compile": {
+          "lib/net45/EntityFramework.dll": {},
+          "lib/net45/EntityFramework.SqlServer.dll": {}
+        },
+        "runtime": {
+          "lib/net45/EntityFramework.dll": {},
+          "lib/net45/EntityFramework.SqlServer.dll": {}
+        }
+      },
       "EntityFramework.Core/7.0.0-beta8": {
         "type": "package",
         "dependencies": {
@@ -2104,6 +2236,23 @@
           "lib/net45/EntityFramework.SqlServer.dll": {}
         }
       },
+      "Fixie/1.0.0.29": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Fixie.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Fixie.Console.exe": {},
+          "lib/net45/Fixie.Console.x86.exe": {},
+          "lib/net45/Fixie.dll": {},
+          "lib/net45/Fixie.TestDriven.dll": {},
+          "lib/net45/Fixie.VisualStudio.TestAdapter.dll": {},
+          "lib/net45/Mono.Cecil.dll": {},
+          "lib/net45/Mono.Cecil.Pdb.dll": {},
+          "lib/net45/Mono.Cecil.Rocks.dll": {},
+          "lib/net45/TestDriven.Framework.dll": {}
+        }
+      },
       "GraphQL/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
@@ -2112,6 +2261,14 @@
           "Antlr4.Runtime": "4.5.0-alpha002",
           "ILRepack": "2.0.2",
           "Newtonsoft.Json": "7.0.1"
+        }
+      },
+      "GraphQL.Relay/1.0.0": {
+        "type": "project",
+        "framework": "DNX,Version=v4.5.1",
+        "dependencies": {
+          "GraphQL": "1.0.0",
+          "Microsoft.AspNet.Http.Abstractions": "1.0.0-rc1-15883"
         }
       },
       "GraphQL.SchemaBuilder/1.0.0": {
@@ -2124,6 +2281,17 @@
           "Microsoft.Extensions.Configuration.CommandLine": "1.0.0-rc1-15696",
           "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-15696",
           "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-16048"
+        }
+      },
+      "GraphQL.Tests/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5.1",
+        "dependencies": {
+          "EntityFramework": "6.1.3",
+          "Fixie": "1.0.0.29",
+          "GraphQL": "1.0.0",
+          "Newtonsoft.Json": "7.0.1",
+          "Should": "1.1.20"
         }
       },
       "ILRepack/2.0.2": {
@@ -2960,6 +3128,15 @@
           "lib/net45/Remotion.Linq.dll": {}
         }
       },
+      "Should/1.1.20": {
+        "type": "package",
+        "compile": {
+          "lib/Should.dll": {}
+        },
+        "runtime": {
+          "lib/Should.dll": {}
+        }
+      },
       "System.Collections.Immutable/1.1.36": {
         "type": "package",
         "compile": {
@@ -3017,9 +3194,17 @@
       "type": "project",
       "path": "../../wrap/GraphQL/project.json"
     },
+    "GraphQL.Relay/1.0.0": {
+      "type": "project",
+      "path": "../../src/GraphQL.Relay/project.json"
+    },
     "GraphQL.SchemaBuilder/1.0.0": {
       "type": "project",
-      "path": "../../GraphQL.SchemaBuilder/project.json"
+      "path": "../../src/GraphQL.SchemaBuilder/project.json"
+    },
+    "GraphQL.Tests/1.0.0": {
+      "type": "project",
+      "path": "../../wrap/GraphQL.Tests/project.json"
     },
     "Antlr4/4.5.0-alpha002": {
       "type": "package",
@@ -3059,6 +3244,34 @@
         "lib/portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/Antlr4.Runtime.xml",
         "lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/Antlr4.Runtime.dll",
         "lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/Antlr4.Runtime.xml"
+      ]
+    },
+    "EntityFramework/6.1.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "2xzFHAF3VVdmTR3//MygtQpwfbDjeaq+nQwCcokLzen7MKHOojPaxNPQPa4diHY1QtcR7zlHAJHNRqPB7W2Syw==",
+      "files": [
+        "content/App.config.transform",
+        "content/Web.config.transform",
+        "EntityFramework.6.1.3.nupkg",
+        "EntityFramework.6.1.3.nupkg.sha512",
+        "EntityFramework.nuspec",
+        "lib/net40/EntityFramework.dll",
+        "lib/net40/EntityFramework.SqlServer.dll",
+        "lib/net40/EntityFramework.SqlServer.xml",
+        "lib/net40/EntityFramework.xml",
+        "lib/net45/EntityFramework.dll",
+        "lib/net45/EntityFramework.SqlServer.dll",
+        "lib/net45/EntityFramework.SqlServer.xml",
+        "lib/net45/EntityFramework.xml",
+        "tools/about_EntityFramework.help.txt",
+        "tools/EntityFramework.PowerShell.dll",
+        "tools/EntityFramework.PowerShell.Utility.dll",
+        "tools/EntityFramework.psd1",
+        "tools/EntityFramework.psm1",
+        "tools/init.ps1",
+        "tools/install.ps1",
+        "tools/migrate.exe"
       ]
     },
     "EntityFramework.Core/7.0.0-beta8": {
@@ -3109,6 +3322,27 @@
         "lib/dotnet/EntityFramework.SqlServer.xml",
         "lib/net45/EntityFramework.SqlServer.dll",
         "lib/net45/EntityFramework.SqlServer.xml"
+      ]
+    },
+    "Fixie/1.0.0.29": {
+      "type": "package",
+      "sha512": "ukL2gug2fDNjx1KbOXaybtRsbZC3aEyHzQL4StK9nz21gES3/fLjtNFpkP5b4zw5SscOHNPHDsbg0GsiHQEW0A==",
+      "files": [
+        "Fixie.1.0.0.29.nupkg",
+        "Fixie.1.0.0.29.nupkg.sha512",
+        "Fixie.nuspec",
+        "lib/net45/Fixie.Console.exe",
+        "lib/net45/Fixie.Console.exe.config",
+        "lib/net45/Fixie.Console.x86.exe",
+        "lib/net45/Fixie.Console.x86.exe.config",
+        "lib/net45/Fixie.dll",
+        "lib/net45/Fixie.dll.tdnet",
+        "lib/net45/Fixie.TestDriven.dll",
+        "lib/net45/Fixie.VisualStudio.TestAdapter.dll",
+        "lib/net45/Mono.Cecil.dll",
+        "lib/net45/Mono.Cecil.Pdb.dll",
+        "lib/net45/Mono.Cecil.Rocks.dll",
+        "lib/net45/TestDriven.Framework.dll"
       ]
     },
     "ILRepack/2.0.2": {
@@ -3869,6 +4103,16 @@
         "Remotion.Linq.nuspec"
       ]
     },
+    "Should/1.1.20": {
+      "type": "package",
+      "sha512": "VkJHcA7fQHAmSrWsshhM6XMqsVaRfBohCGV+rWBfYlFA0e0WDBaQwE+6vYVkEebZNdPVPHrSJxcxfQfCqJZS+A==",
+      "files": [
+        "lib/Should.dll",
+        "Should.1.1.20.nupkg",
+        "Should.1.1.20.nupkg.sha512",
+        "Should.nuspec"
+      ]
+    },
     "System.Collections.Immutable/1.1.36": {
       "type": "package",
       "serviceable": true,
@@ -4044,13 +4288,14 @@
       "Microsoft.AspNet.Hosting >= 1.0.0-*",
       "Microsoft.AspNet.StaticFiles >= 1.0.0-*",
       "Microsoft.AspNet.Server.WebListener >= 1.0.0-*",
-      "GraphQL.SchemaBuilder >= 1.0.0-*",
       "EntityFramework.Core >= 7.0.0-beta8",
-      "EntityFramework.SqlServer >= 7.0.0-beta8"
+      "EntityFramework.SqlServer >= 7.0.0-beta8",
+      "GraphQL.SchemaBuilder >= 1.0.0-*"
     ],
     "DNX,Version=v4.5.1": [
       "GraphQL >= 1.0.0-*",
-      "fx/System.ComponentModel.Annotations >= 4.0.0"
+      "GraphQL.Relay >= 1.0.0-*",
+      "GraphQL.Tests >= 1.0.0-*"
     ]
   }
 }

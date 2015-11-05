@@ -6,10 +6,8 @@
         [Test]
         public void can_introduce_ship_mutation()
         {
-            using( StarWarsData data = new StarWarsData() )
-            {
 
-                var mutation = @"
+            var mutation = @"
                 mutation AddBWingQuery($input: IntroduceShipInput!) {
                     introduceShip(input: $input) {
                         ship {
@@ -23,7 +21,7 @@
                     }
                 }";
 
-                var inputs = new Inputs
+            var inputs = new Inputs
                 {
                     {
                         "input", new
@@ -35,7 +33,7 @@
                     }
                 };
 
-                var expected = @"{
+            var expected = @"{
     ""introduceShip"": {
       ""ship"": {
         ""id"": ""U2hpcDo5"",
@@ -48,8 +46,7 @@
     }
   }";
 
-                AssertQuerySuccess( mutation, expected, inputs, data );
-            }
+            AssertQuerySuccess( mutation, expected, inputs );
         }
     }
 }

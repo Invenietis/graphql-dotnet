@@ -7,12 +7,7 @@ namespace GraphQL.Tests
 {
     public class StarWarsBasicQueryTests : QueryTestBase<StarWarsSchema>
     {
-        StarWarsData _data = new StarWarsData();
-
-        public StarWarsBasicQueryTests()
-        {
-        }
-
+        
         [Test]
         public void identifies_r2_as_the_hero()
         {
@@ -29,7 +24,7 @@ namespace GraphQL.Tests
     name: 'R2-D2'
   }
 }";
-            AssertQuerySuccess( query, expected, root: _data );
+            AssertQuerySuccess( query, expected );
         }
 
         [Test]
@@ -49,7 +44,7 @@ namespace GraphQL.Tests
   }
 }";
 
-            AssertQuerySuccess( query, expected, root: _data );
+            AssertQuerySuccess( query, expected );
         }
 
         [Test]
@@ -82,7 +77,7 @@ namespace GraphQL.Tests
   }
 }";
 
-            AssertQuerySuccess( query, expected, root: _data );
+            AssertQuerySuccess( query, expected );
         }
 
         [Test]
@@ -104,7 +99,7 @@ namespace GraphQL.Tests
               }
             }";
 
-            AssertQuerySuccess( query, expected, root: _data );
+            AssertQuerySuccess( query, expected );
         }
 
         [Test]
@@ -132,7 +127,7 @@ namespace GraphQL.Tests
               }
             }";
 
-            AssertQuerySuccess( query, expected, root: _data );
+            AssertQuerySuccess( query, expected );
         }
 
         [Test]
@@ -152,7 +147,7 @@ namespace GraphQL.Tests
   }
 }";
 
-            AssertQuerySuccess( query, expected, root: _data );
+            AssertQuerySuccess( query, expected );
         }
 
         [Test]
@@ -175,7 +170,7 @@ namespace GraphQL.Tests
 
             var inputs = new Inputs {{"id", "1"}};
 
-            AssertQuerySuccess( query, expected, inputs, root: _data );
+            AssertQuerySuccess( query, expected, inputs );
         }
 
         [Test]
@@ -202,7 +197,7 @@ namespace GraphQL.Tests
               }
             }";
 
-            AssertQuerySuccess( query, expected, root: _data );
+            AssertQuerySuccess( query, expected );
         }
     }
 }

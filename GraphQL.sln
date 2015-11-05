@@ -11,9 +11,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQL.GraphiQL", "src\Gra
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "GraphQL.Relay", "src\GraphQL.Relay\GraphQL.Relay.xproj", "{E9463809-5F1D-4F0C-8817-A4864A2E7726}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "GraphQL.SchemaBuilder", "GraphQL.SchemaBuilder\GraphQL.SchemaBuilder.xproj", "{9FA24544-FA5B-4959-9964-58D538DB62EC}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "GraphQL.SchemaBuilder", "src\GraphQL.SchemaBuilder\GraphQL.SchemaBuilder.xproj", "{9FA24544-FA5B-4959-9964-58D538DB62EC}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "GraphQL.Relay.TodoMVC", "src\GraphQL.Relay.TodoMVC\GraphQL.Relay.TodoMVC.xproj", "{F5033B86-E8D8-4116-98AC-57ED1479BFC3}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "GraphQL.Relay.TodoMVC", "samples\GraphQL.Relay.TodoMVC\GraphQL.Relay.TodoMVC.xproj", "{F5033B86-E8D8-4116-98AC-57ED1479BFC3}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "GraphQL.Relay.StarWars", "samples\GraphQL.Relay.StarWars\GraphQL.Relay.StarWars.xproj", "{0F37340E-6D7F-4948-A1B8-233DCFFD33A1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{242E1BB4-C684-4D8A-B3A0-E6D31A3BF754}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{318F5D81-94BE-45E7-8687-6B739F8A1E8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,8 +51,18 @@ Global
 		{F5033B86-E8D8-4116-98AC-57ED1479BFC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5033B86-E8D8-4116-98AC-57ED1479BFC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5033B86-E8D8-4116-98AC-57ED1479BFC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F37340E-6D7F-4948-A1B8-233DCFFD33A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F37340E-6D7F-4948-A1B8-233DCFFD33A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F37340E-6D7F-4948-A1B8-233DCFFD33A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F37340E-6D7F-4948-A1B8-233DCFFD33A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{084E1E35-14BD-414B-97B6-1A6469CD1893} = {318F5D81-94BE-45E7-8687-6B739F8A1E8F}
+		{EE557888-1CD2-4E87-BD87-06834C988B23} = {318F5D81-94BE-45E7-8687-6B739F8A1E8F}
+		{F5033B86-E8D8-4116-98AC-57ED1479BFC3} = {242E1BB4-C684-4D8A-B3A0-E6D31A3BF754}
+		{0F37340E-6D7F-4948-A1B8-233DCFFD33A1} = {242E1BB4-C684-4D8A-B3A0-E6D31A3BF754}
 	EndGlobalSection
 EndGlobal

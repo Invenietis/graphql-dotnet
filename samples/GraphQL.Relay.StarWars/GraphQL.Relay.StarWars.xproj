@@ -6,23 +6,18 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>e9463809-5f1d-4f0c-8817-a4864a2e7726</ProjectGuid>
-    <RootNamespace>GraphQL.Relay</RootNamespace>
+    <ProjectGuid>0f37340e-6d7f-4948-a1b8-233dcffd33a1</ProjectGuid>
+    <RootNamespace>GraphQL.Relay.StarWars</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">..\..\artifacts\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">..\..\artifacts\bin\$(MSBuildProjectName)\</OutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
-    <DevelopmentServerPort>28204</DevelopmentServerPort>
+    <DevelopmentServerPort>63337</DevelopmentServerPort>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GraphQL.Tests\GraphQL.Tests.csproj" />
-    <ProjectReference Include="..\GraphQL\GraphQL.csproj" />
+    <ProjectReference Include="..\..\src\GraphQL.Tests\GraphQL.Tests.csproj" />
+    <ProjectReference Include="..\..\src\GraphQL\GraphQL.csproj" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.targets" Condition="'$(VSToolsPath)' != ''" />
-  <ProjectExtensions>
-    <VisualStudio>
-      <UserProperties />
-    </VisualStudio>
-  </ProjectExtensions>
 </Project>

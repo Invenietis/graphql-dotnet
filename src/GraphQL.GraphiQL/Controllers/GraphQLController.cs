@@ -9,19 +9,17 @@ namespace GraphQL.GraphiQL.Controllers
     {
         private Schema _schema;
 
-        StarWarsData _data;
         public GraphQLController()
         {
             _schema = new StarWarsSchema();
-            _data = new StarWarsData();
         }
 
         public async Task<ExecutionResult> Post(GraphQLQuery query)
         {
-            return await Execute(_schema, _data, query.Query);
+            return await Execute(_schema, null, query.Query);
         }
 
-        public async Task<ExecutionResult> Execute<T>( Schema schema, T rootObject, string query, string operationName = null, Inputs inputs = null)
+        public async Task<ExecutionResult> Execute( Schema schema, object rootObject, string query, string operationName = null, Inputs inputs = null)
         {
             var executer = new DocumentExecuter();
             return await executer.ExecuteAsync(schema, rootObject, query, operationName);
@@ -29,7 +27,6 @@ namespace GraphQL.GraphiQL.Controllers
 
         protected override void Dispose( bool disposing )
         {
-            _data.Dispose();
             base.Dispose( disposing );
         }
     }

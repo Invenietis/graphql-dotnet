@@ -1,0 +1,37 @@
+{
+    "webroot": "wwwroot",
+    "version": "1.0.0-*",
+
+    "dependencies": {
+        "Microsoft.AspNet.Hosting": "1.0.0-*",
+        "Microsoft.AspNet.StaticFiles": "1.0.0-*",
+        "Microsoft.AspNet.Server.WebListener": "1.0.0-*",
+        "EntityFramework.Core": "7.0.0-beta8",
+        "EntityFramework.SqlServer": "7.0.0-beta8",
+        "GraphQL.SchemaBuilder": "1.0.0-*"
+    },
+
+    "commands": {
+        "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5001",
+        "buildschema": "GraphQL.SchemaBuilder --schemaTypeName GraphQL.Relay.TodoMVC.TodoMVCSchema --schemaAssemblyName GraphQL.Relay.TodoMVC"
+    },
+
+    "frameworks": {
+        "dnx451": {
+            "dependencies": {
+                "GraphQL": "1.0.0-*",
+                "GraphQL.Relay": "1.0.0-*",
+                "GraphQL.Tests": "1.0.0-*"
+            }
+        }
+    },
+
+    "exclude": [
+        "wwwroot",
+        "node_modules"
+    ],
+    "publishExclude": [
+        "**.user",
+        "**.vspscc"
+    ]
+}

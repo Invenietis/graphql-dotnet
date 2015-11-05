@@ -51,7 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base64.cs" />
     <Compile Include="Execution\AntlrDocumentBuilder.cs" />
     <Compile Include="Extensions\ViewerType.cs" />
     <Compile Include="Handlers\HandlerBuilder.cs" />
@@ -68,17 +67,6 @@
     <Compile Include="Introspection\__InputValue.cs" />
     <Compile Include="Introspection\__Type.cs" />
     <Compile Include="Introspection\__TypeKind.cs" />
-    <Compile Include="Relay\Connection.cs" />
-    <Compile Include="Relay\ConnectionCursor.cs" />
-    <Compile Include="Relay\Edge.cs" />
-    <Compile Include="Relay\PageInfo.cs" />
-    <Compile Include="Relay\ResolvedGlobalId.cs" />
-    <Compile Include="Relay\SimpleListConnection.cs" />
-    <Compile Include="Relay\Types\ConnectionType.cs" />
-    <Compile Include="Relay\Types\EdgeType.cs" />
-    <Compile Include="Relay\Types\NodeInterface.cs" />
-    <Compile Include="Relay\Types\NodeType.cs" />
-    <Compile Include="Relay\Types\PageInfoType.cs" />
     <Compile Include="TypeExtensions.cs" />
     <Compile Include="Types\BooleanGraphType.cs" />
     <Compile Include="Types\DirectiveGraphType.cs" />

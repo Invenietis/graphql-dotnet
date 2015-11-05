@@ -3,14 +3,11 @@ using GraphQL.Types;
 
 namespace GraphQL.Tests
 {
-    public class StarWarsSchema<QRoot> : Schema where QRoot : ObjectGraphType 
+    public class StarWarsSchema : Schema
     {
         public StarWarsSchema()
         {
-            Query = (QRoot)ResolveType( typeof( QRoot ) );
-            Mutation = new StarWarsMutations();
+            Query = new StarWarsQuery();
         }
     }
-
-    public class StarWarsSchema : StarWarsSchema<StarWarsQuery> { }
 }

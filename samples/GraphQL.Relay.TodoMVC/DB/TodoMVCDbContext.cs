@@ -22,7 +22,6 @@ namespace GraphQL.Relay.TodoMVC.DB
         {
             base.OnConfiguring( optionsBuilder );
             optionsBuilder.UseSqlServer( "Server=.;Database=GraphQLRelay;Integrated Security=SSPI;" );
-
         }
 
         public DbSet<Todo> Todos { get; set; }

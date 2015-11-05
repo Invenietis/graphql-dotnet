@@ -1,18 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using GraphQL.Http;
-using GraphQL.Tests;
-using GraphQL.Types;
 using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
 
-namespace GraphQL.Relay
+namespace GraphQL.Relay.StarWars
 {
     public class Startup
     {
@@ -25,7 +19,11 @@ namespace GraphQL.Relay
         {
             // Add the platform handler to the request pipeline.
             app.UseStaticFiles();
-            app.UseGraphQL( "/graphql" );
+
+            app.UseGraphQL( "/graphql", new GraphQL.Relay.StarWars.StarWarsRelaySchema
+            {
+                DbContextFactory = () => new DB.StarWarsDbContext()
+            } );
         }
     }
 }

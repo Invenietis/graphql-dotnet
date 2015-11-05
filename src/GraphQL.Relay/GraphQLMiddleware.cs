@@ -4,13 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using GraphQL.Http;
-using GraphQL.Tests;
 using GraphQL.Types;
-using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Http;
 using Newtonsoft.Json;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNet.Builder;
+using Microsoft.AspNet.Http;
 
 namespace GraphQL.Relay
 {
@@ -20,25 +17,24 @@ namespace GraphQL.Relay
         readonly Schema _schema;
         readonly IDocumentExecuter _executer;
         readonly IDocumentWriter _writer;
-        public GraphQLMiddleware( RequestDelegate next )
+
+        public GraphQLMiddleware( RequestDelegate next, Schema schema )
         {
             _next = next;
-            _schema = new StarWarsRelaySchema();
+            _schema = schema;
             _executer = new DocumentExecuter();
             _writer = new DocumentWriter( Formatting.Indented );
         }
 
         public async Task Invoke( HttpContext httpContext )
         {
-            using( var data = new StarWarsData() )
-            {
-                var query = GetQuery( httpContext );
-                var result = await _executer.ExecuteAsync( _schema, data, query.Query, null, query.Variables, httpContext.RequestAborted );
+            var query = GetQuery( httpContext );
+            var result = await _executer.ExecuteAsync( _schema, null, query.Query, null, query.Variables, httpContext.RequestAborted );
 
-                var resultJson = _writer.Write( result );
-                await httpContext.Response.WriteAsync( resultJson, httpContext.RequestAborted );
-            }
+            var resultJson = _writer.Write( result );
+            await httpContext.Response.WriteAsync( resultJson, httpContext.RequestAborted );
         }
+
 
         private GraphQLQuery GetQuery( HttpContext httpContext )
         {
@@ -58,13 +54,13 @@ namespace GraphQL.Relay
     // Extension method used to add the middleware to the HTTP request pipeline.
     public static class GraphQLExtensions
     {
-        public static IApplicationBuilder UseGraphQL( this IApplicationBuilder builder, PathString routePrefix )
+        public static IApplicationBuilder UseGraphQL( this IApplicationBuilder builder, PathString routePrefix, Schema schema )
         {
             if( string.IsNullOrWhiteSpace( routePrefix ) ) throw new ArgumentNullException( nameof( routePrefix ) );
 
             return builder.Map( routePrefix, ( app ) =>
             {
-                app.UseMiddleware<GraphQLMiddleware>();
+                app.UseMiddleware<GraphQLMiddleware>( schema );
             } );
         }
     }
