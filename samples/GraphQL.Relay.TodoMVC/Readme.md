@@ -29,16 +29,13 @@ Runs the website.
 dnx web
 ```
 
-This will launch the server at localhost:5000.
+This will launch the server at localhost:5001.
 
 The Viewer node
 ==
 
 Since Relay does not supports arrays as a primary node, the sample implements the viewer pattern.
 See: https://github.com/facebook/relay/issues/112
-
-* A new GraphType *ViewerType&lt;Q&gt;* has been introduced in GraphQL.Types. 
-* In tests project GraphQL.Tests, *StarWarsSchema&lt;QRoot&gt;* has been introduced. QRoot is an ObjectGraphType that wraps the basic StarWarsQuery. 
 
 Finaly, a simple ASP.Net Middleware handle requests :
 ```csharp
@@ -47,17 +44,14 @@ app.UseGraphQL( "/graphql" );
 
 Entity Framework
 ==
-StarWarsData from test project is modified to fit EntityFramework Code First format.
 This Relay sample uses EntityFramework over SqlServer.
 
 Mutations
 ==
-Works from SaltyDH on Mutations is integrated in this sample. (https://github.com/SaltyDH/graphql-dotnet).
-But Mutations has then been disabled, since it seems to miss something for Relay: webpack produces the folowing error message: 
-> *Module build failed: Error: Introspection must provide output type for fields.*
+Works from SaltyDH on Mutations is included in this sample. (https://github.com/SaltyDH/graphql-dotnet).
 
 GraphQL.SchemaBuilder
 ==
 Dnx command to build schema.json.
 You must provides the schema type name and the assembly name where to found your final Schema.
-In the Relay sample, the command is:  "GraphQL.SchemaBuilder --schemaTypeName GraphQL.Relay.StarWarsRelaySchema --schemaAssemblyName GraphQL.Relay".
+In the Relay sample, the command is:  "GraphQL.SchemaBuilder --schemaTypeName GraphQL.Relay.TodoMVC.TodoMVCSchema --schemaAssemblyName GraphQL.Relay.TodoMVC".
