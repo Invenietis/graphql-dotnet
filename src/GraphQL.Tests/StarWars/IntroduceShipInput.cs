@@ -8,9 +8,8 @@ namespace GraphQL.Tests
         {
             Name = "IntroduceShipInput";
             
-            Field< NonNullGraphType<IntGraphType>>( "FactionId", "Id of the faction" );
+            Field<NonNullGraphType<IntGraphType>>( "FactionId", "Id of the faction" );
             Field<NonNullGraphType<StringGraphType>>( "ShipName", "Name of the ship" );
-            Field<NonNullGraphType<StringGraphType>>( "ClientMutationId", "Client mutation id" );
         }
 
         public int FactionId { get; set; }

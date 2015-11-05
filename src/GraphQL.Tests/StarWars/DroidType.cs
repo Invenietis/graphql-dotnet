@@ -8,6 +8,8 @@ namespace GraphQL.Tests
     {
         public DroidType()
         {
+            var data = new StarWarsData();
+
             Name = "Droid";
             Description = "A mechanical creature in the Star Wars universe.";
 
@@ -16,12 +18,7 @@ namespace GraphQL.Tests
             Field<StringGraphType>( "name", "The name of the droid." );
             Field<ListGraphType<CharacterInterface>>(
                 "friends",
-                resolve: context => 
-                {
-                    var source =  context.Source as StarWarsCharacter;
-                    //context.Root.As<StarWarsData>().GetFriends( context.Source as StarWarsCharacter );
-                    return source.Friends;
-                }
+                resolve: context => data.GetFriends( context.Source as StarWarsCharacter )
             );
             Field<ListGraphType<EpisodeEnum>>( "appearsIn", "Which movie they appear in." );
             Field<StringGraphType>( "primaryFunction", "The primary function of the droid." );

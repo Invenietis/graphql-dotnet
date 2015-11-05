@@ -8,9 +8,8 @@ namespace GraphQL.Tests
         {
             Name = "IntroduceShipPayload";
 
-            Field<NonNullGraphType<Ship>>( "newShipEdge" );
+            Field<NonNullGraphType<Ship>>( "ship" );
             Field<NonNullGraphType<Faction>>( "faction" );
-            Field<StringGraphType>( "clientMutationId" );
         }
 
         public Ship Ship { get; set; }

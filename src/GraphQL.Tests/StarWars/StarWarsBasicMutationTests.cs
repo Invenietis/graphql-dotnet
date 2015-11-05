@@ -1,6 +1,6 @@
 ﻿namespace GraphQL.Tests
 {
-    public class StarWarsBasicMutationTests : QueryTestBase<StarWarsSchema>
+    public class StarWarsBasicMutationTests : QueryTestBase<StarWarsSchemaWithMutation>
     {
 
         [Test]
@@ -28,7 +28,7 @@
                         {
                             shipName = "B-Wing",
                             factionId = 1,
-                            clientMutationId = "U2hpcDo5"
+                            clientMutationId = "abcde"
                         }
                     }
                 };
