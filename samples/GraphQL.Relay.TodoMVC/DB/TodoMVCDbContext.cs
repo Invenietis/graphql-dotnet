@@ -21,7 +21,8 @@ namespace GraphQL.Relay.TodoMVC.DB
         protected override void OnConfiguring( DbContextOptionsBuilder optionsBuilder )
         {
             base.OnConfiguring( optionsBuilder );
-            optionsBuilder.UseSqlServer( "Server=.;Database=GraphQLRelay;Integrated Security=SSPI;" );
+            optionsBuilder.UseSqlServer( Startup.Configuration["connectionString"] );
+
         }
 
         public DbSet<Todo> Todos { get; set; }

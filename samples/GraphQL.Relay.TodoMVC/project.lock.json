@@ -4074,7 +4074,8 @@
       "Microsoft.AspNet.Server.WebListener >= 1.0.0-*",
       "EntityFramework.Core >= 7.0.0-beta8",
       "EntityFramework.SqlServer >= 7.0.0-beta8",
-      "GraphQL.SchemaBuilder >= 1.0.0-*"
+      "GraphQL.SchemaBuilder >= 1.0.0-*",
+      "Microsoft.Framework.Configuration >= 1.0.0-beta8"
     ],
     "DNX,Version=v4.5.1": [
       "GraphQL >= 1.0.0-*",
