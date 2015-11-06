@@ -6,8 +6,8 @@ using System.Reflection;
 using System.Threading.Tasks;
 using GraphQL.Http;
 using GraphQL.Types;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.Dnx.Runtime;
+using Microsoft.Framework.Configuration;
 using Newtonsoft.Json;
 
 namespace GraphQL.SchemaBuilder
@@ -15,11 +15,9 @@ namespace GraphQL.SchemaBuilder
     public class Program
     {
         private readonly IApplicationEnvironment _appEnv;
-        private readonly ILibraryManager _libMgr;
 
-        public Program( ILibraryManager libraryManager, IApplicationEnvironment appEnv )
+        public Program( IApplicationEnvironment appEnv )
         {
-            _libMgr = libraryManager;
             _appEnv = appEnv;
         }
 

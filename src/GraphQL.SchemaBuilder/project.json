@@ -7,10 +7,10 @@
   "licenseUrl": "",
 
     "dependencies": {
-        "Microsoft.Dnx.Runtime.Abstractions": "1.0.0-rc1-15838",
-        "Microsoft.Extensions.Configuration": "1.0.0-rc1-15773",
-        "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-15696",
-        "Microsoft.Extensions.Configuration.CommandLine": "1.0.0-rc1-15696"
+        "Microsoft.Dnx.Runtime.Abstractions": "1.0.0-*",
+        "Microsoft.Framework.Configuration": "1.0.0-*",
+        "Microsoft.Framework.Configuration.Json": "1.0.0-*",
+        "Microsoft.Framework.Configuration.CommandLine": "1.0.0-*"
     },
 
   "commands": {
@@ -20,8 +20,7 @@
   "frameworks": {
     "dnx451": {
         "dependencies": {
-            "GraphQL": "1.0.0-*",
-            "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-16048"
+            "GraphQL": "1.0.0-*"
         }
     }
   }

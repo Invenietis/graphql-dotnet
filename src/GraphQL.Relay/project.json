@@ -3,7 +3,7 @@
     "version": "1.0.0-*",
 
     "dependencies": {
-        "Microsoft.AspNet.Http.Abstractions": "1.0.0-rc1-15883"
+        "Microsoft.AspNet.Http.Abstractions": "1.0.0-*"
     },
 
 
