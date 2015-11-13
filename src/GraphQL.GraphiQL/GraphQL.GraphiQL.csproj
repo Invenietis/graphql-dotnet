@@ -197,7 +197,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GraphQL.Tests\GraphQL.Tests.csproj">
+    <ProjectReference Include="..\..\tests\GraphQL.Tests\GraphQL.Tests.csproj">
       <Project>{084e1e35-14bd-414b-97b6-1a6469cd1893}</Project>
       <Name>GraphQL.Tests</Name>
     </ProjectReference>

@@ -52,6 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Registration\ConventionGraphPropertyHandlerTests.cs" />
+    <Compile Include="Registration\RegistrationDiscovererTests.cs" />
     <Compile Include="Execution\Cancellation\CancellationTests.cs" />
     <Compile Include="Execution\Directives\DirectivesTests.cs" />
     <Compile Include="StarWars\EpisodeEnum.cs" />
@@ -75,7 +77,11 @@
     <Compile Include="Types\SchemaTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GraphQL\GraphQL.csproj">
+    <ProjectReference Include="..\..\src\GraphQL.Registration\GraphQL.Registration.csproj">
+      <Project>{7611d028-84d3-4fb2-a90b-406ed13368c3}</Project>
+      <Name>GraphQL.Registration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\GraphQL\GraphQL.csproj">
       <Project>{c0e08b04-8a0d-4196-967c-8850825041b0}</Project>
       <Name>GraphQL</Name>
     </ProjectReference>

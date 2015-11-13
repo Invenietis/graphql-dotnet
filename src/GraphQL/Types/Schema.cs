@@ -8,7 +8,7 @@ namespace GraphQL.Types
     {
         public Schema()
         {
-            ResolveType = type => (GraphType)Activator.CreateInstance(type);
+            ResolveType = type => (GraphType)Activator.CreateInstance( type );
         }
 
         private GraphTypesLookup _lookup;
@@ -37,34 +37,34 @@ namespace GraphQL.Types
             {
                 return _lookup
                     .All()
-                    .Where(x => !(x is NonNullGraphType || x is ListGraphType))
+                    .Where( x => !(x is NonNullGraphType || x is ListGraphType) )
                     .ToList();
             }
         }
 
-        public GraphType FindType(string name)
+        public GraphType FindType( string name )
         {
             EnsureLookup();
             return _lookup[name];
         }
 
-        public GraphType FindType(Type type)
+        public GraphType FindType( Type type )
         {
             EnsureLookup();
-            return _lookup[type] ?? AddType(type);
+            return _lookup[type] ?? AddType( type );
         }
 
-        public IEnumerable<GraphType> FindTypes(IEnumerable<Type> types)
+        public IEnumerable<GraphType> FindTypes( IEnumerable<Type> types )
         {
-            return types.Select(FindType).ToList();
+            return types.Select( FindType ).ToList();
         }
 
-        public IEnumerable<GraphType> FindImplemenationsOf(Type type)
+        public IEnumerable<GraphType> FindImplemenationsOf( Type type )
         {
-            return _lookup.FindImplemenationsOf(type);
+            return _lookup.FindImplemenationsOf( type );
         }
 
-        private GraphType AddType(Type type)
+        protected virtual GraphType AddType( Type type )
         {
             var ctx = new TypeCollectionContext(ResolveType, (name, graphType) =>
             {
@@ -72,13 +72,13 @@ namespace GraphQL.Types
             });
 
             var instance = ResolveType(type);
-            _lookup.AddType(instance, ctx);
+            _lookup.AddType( instance, ctx );
             return instance;
         }
 
         public void EnsureLookup()
         {
-            if (_lookup == null)
+            if( _lookup == null )
             {
                 _lookup = new GraphTypesLookup();
 
@@ -87,8 +87,8 @@ namespace GraphQL.Types
                     _lookup[name] = graphType;
                 });
 
-                _lookup.AddType(Query, ctx);
-                _lookup.AddType(Mutation, ctx);
+                _lookup.AddType( Query, ctx );
+                _lookup.AddType( Mutation, ctx );
             }
         }
     }

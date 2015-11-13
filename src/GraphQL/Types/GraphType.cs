@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace GraphQL.Types
 {
@@ -18,32 +18,37 @@ namespace GraphQL.Types
             private set
             {
                 _fields.Clear();
-                _fields.AddRange(value);
+                _fields.AddRange( value );
             }
         }
 
         public void Field<TType>(
-            string name, 
-            string description = null, 
+            string name,
+            string description = null,
             QueryArguments arguments = null,
-            Func<ResolveFieldContext, object> resolve = null)
+            Func<ResolveFieldContext, object> resolve = null )
             where TType : GraphType
         {
-            if (_fields.Exists(x => x.Name == name))
-            {
-                throw new ArgumentOutOfRangeException("name", "A field with that name is already registered.");
-            }
-
-            _fields.Add(new FieldType
+            AddField(  new FieldType
             {
                 Name = name,
-                Type = typeof(TType),
+                Type = typeof( TType ),
                 Arguments = arguments,
                 Resolve = resolve
-            });
+            } );
         }
 
-        public virtual string CollectTypes(TypeCollectionContext context)
+        public void AddField( FieldType fieldType )
+        {
+            if( _fields.Exists( x => x.Name == fieldType.Name ) )
+            {
+                throw new ArgumentOutOfRangeException( "name", "A field with that name is already registered." );
+            }
+
+            _fields.Add( fieldType );
+        }
+
+        public virtual string CollectTypes( TypeCollectionContext context )
         {
             return Name;
         }
@@ -56,7 +61,7 @@ namespace GraphQL.Types
     {
         public TypeCollectionContext(
             Func<Type, GraphType> resolver,
-            Action<string, GraphType> addType)
+            Action<string, GraphType> addType )
         {
             ResolveType = resolver;
             AddType = addType;
