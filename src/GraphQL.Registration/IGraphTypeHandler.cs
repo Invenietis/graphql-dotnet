@@ -7,14 +7,14 @@ using GraphQL.Types;
 
 namespace GraphQL.Registration
 {
-    public interface IGraphTypeHandler
+    public interface IGraphTypeFieldHandler
     {
         /// <summary>
-        /// Resolves the given <see cref="Type"/> to a <see cref="GraphType"/>. If no resolution can be performed, returns null.
+        /// Resolves the type of a field 
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="item"></param>
         /// <returns></returns>
-        GraphType ResolveGraphType( Type type );
+        Type ResolveFieldGraphType( ItemMetadata item );
 
         Type BindResolver( ItemMetadata item );
 
@@ -24,11 +24,22 @@ namespace GraphQL.Registration
 
         bool IsNullable( ItemMetadata item );
 
-        Type BindGraphType( ItemMetadata item );
-
         object BindDefaultValue( ItemMetadata item );
 
         bool? IsIdentifier( ItemMetadata item );
+
         string BindDeprecationReason( ItemMetadata item );
+
+        bool IsGraphTypeInterface( ItemMetadata t );
+    }
+
+    public interface IGraphTypeHandler : IGraphTypeFieldHandler
+    {
+        /// <summary>
+        /// Resolves the given <see cref="Type"/> to a <see cref="GraphType"/>. If no resolution can be performed, returns null.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        GraphType ResolveGraphType( Type type );
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GraphQL.Types;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace GraphQL.Registration
 {
@@ -18,9 +19,14 @@ namespace GraphQL.Registration
         /// <returns></returns>
         public GraphType ResolveGraphType( Type type )
         {
-            GraphType graphType = Activator.CreateInstance( typeof( ObjectGraphType ) ) as GraphType;
+            GraphType  graphType = type.IsInterface ? (GraphType)new InterfaceGraphType() : new ObjectGraphType();
             graphType.Name = type.Name;
             return graphType;
+        }
+
+        public bool IsGraphTypeInterface( ItemMetadata item )
+        {
+            return item.ItemType.IsInterface;
         }
 
         public Type BindResolver( ItemMetadata field )
@@ -49,7 +55,7 @@ namespace GraphQL.Registration
             return !item.ItemType.IsPrimitive;
         }
 
-        public Type BindGraphType( ItemMetadata item )
+        public Type ResolveFieldGraphType( ItemMetadata item )
         {
             return FindGraphTypeByConvention( item.ItemType );
         }

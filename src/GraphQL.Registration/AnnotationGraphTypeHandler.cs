@@ -10,7 +10,7 @@ namespace GraphQL.Registration
 {
     public class AnnotationGraphTypeHandler : IGraphTypeHandler
     {
-        public Type BindGraphType( ItemMetadata item )
+        public Type ResolveFieldGraphType( ItemMetadata item )
         {
             return item.GetAttribute<GraphTypeAttribute>()?.GraphType;
         }
@@ -56,6 +56,11 @@ namespace GraphQL.Registration
         public bool? IsIdentifier( ItemMetadata item )
         {
             return item.HasAttribute<IdGraphAttribute>();
+        }
+
+        public bool IsGraphTypeInterface( ItemMetadata item )
+        {
+            return item.HasAttribute<InterfaceGraphTypeAttribute>() || item.GetAttribute<GraphTypeAttribute>()?.GraphType == typeof( InterfaceGraphTypeAttribute );
         }
 
         public string BindDeprecationReason( ItemMetadata item )

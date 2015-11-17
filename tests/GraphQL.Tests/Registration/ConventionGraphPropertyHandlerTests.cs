@@ -37,10 +37,21 @@ namespace GraphQL.Tests.Registration
             // Act
             ConventionGraphTypeHandler handler = new ConventionGraphTypeHandler();
             ctx.IsNullable = handler.IsNullable( property );
-            ctx.GraphType = handler.BindGraphType( property );
+            ctx.GraphType = handler.ResolveFieldGraphType( property );
 
             // Assert
             ctx.BuildGraphType().ShouldNotBeNull().ShouldEqual( typeof( T ) );
+        }
+
+        private void ExpectedInterface<TInterface>()
+        {
+            ConventionGraphTypeHandler handler = new ConventionGraphTypeHandler();
+            var isInterface =handler.IsGraphTypeInterface( new ItemMetadata
+            {
+                ItemType = typeof( TInterface ),
+                Attributes = typeof( TInterface ).GetCustomAttributes().OfType<IGraphAttribute>().ToArray()
+            } );
+            isInterface.ShouldBeTrue();
         }
 
         [Test]
@@ -55,9 +66,15 @@ namespace GraphQL.Tests.Registration
             Expected<BooleanGraphType>( "Flag2" );
             //Expected<ListGraphType<NonNullGraphType<IntGraphType>>>( "SimpleList" );
             Expected<ListGraphType<FloatGraphType>>( "SimpleList2" );
+            ExpectedInterface<ISimple>();
         }
 
-        class SimpleComplexTypeDto
+        interface ISimple
+        {
+            string Text { get;}
+        }
+
+        class SimpleComplexTypeDto : ISimple
         {
             public string Text { get; set; }
 
